@@ -29,12 +29,12 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `produtos` (
-  `codigoProduto` int(11) NOT NULL,
+  `codigoProduto` int(11) NOT NULL PRIMARY KEY,
   `nomeProduto` varchar(255) NOT NULL,
   `tipoProduto` varchar(255) NOT NULL,
   `valorProduto` double NOT NULL,
   `qtdEstoque` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+);
 
 -- --------------------------------------------------------
 
@@ -43,10 +43,11 @@ CREATE TABLE `produtos` (
 --
 
 CREATE TABLE `usuarios` (
-  `codigoUsuario` int(11) NOT NULL,
+  `codigoUsuario` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `nomeUsuario` varchar(255) NOT NULL,
-  `senhaUsuario` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `senhaUsuario` varchar(255) NOT NULL,
+  `cargo` varchar(50) NOT NULL
+);
 
 --
 -- Indexes for dumped tables

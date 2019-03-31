@@ -1,22 +1,21 @@
 <?php
-  /**
-   * @author Giovane Garcia
-   *
-   */
-  class ConexaoBanco extends PDO {
-    const $userName = "root";
-    const $password = "";
-    const $host = "localhost";
-    const $db = "meu_mercado";
-
-    public function getConnection(){
-      try {
-        $conn = new PDO("mysql:dbname=$db;host=$host", $userName, $password);
-        return $conn;
-      } catch (\Exception $e) {
-        echo "Erro: " . $e->getMessage;
-      }//fecha try...catch
-    }//fecha getConnection
-  }//fecha class
-
-?>
+class ConexaoBanco extends PDO{
+    public static $instance;
+  
+    private function __construct($dsn,$usuario,$senha) {
+        parent::__construct($dsn,$usuario,$senha);
+    }
+  
+    public static function getInstance() {
+        try {
+            if (!isset(self::$instance)) {
+                self::$instance = new PDO('mysql:host=localhost;dbname=meu_mercado', 'root', '');
+                self::$instance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);                
+            }//fecha if
+            return self::$instance;
+        } catch (Exception $exc) {
+            echo "<p>Erro: " . $exc->getTraceAsString() . "</p>";
+            echo "<p>Erro: " . $exc->getMessage() . "</p>";
+        }//fecha try...catch
+    }//fecha getInstance
+}//fecha class
