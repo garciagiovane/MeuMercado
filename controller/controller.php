@@ -1,13 +1,24 @@
 <?php
-include "../utilities/validation.class.php";
+include '../utilities/validation.class.php';
+include '../model/produto.class.php';
 
 $validation = new Validation();
+
 
 $idProduto = $_POST['codigoProduto'];
 $nomeProduto = $_POST['nomeProduto'];
 $tipoProduto = $_POST['tipoProduto'];
 $valorProduto = $_POST['valorProduto'];
 $quantidade = $_POST['quantidade'];
+
+$produto = new Produto();
+
+
+
+
+
+
+
     /*
         echo "IdProduto: $idProduto";
         echo "<br>Nome: $nomeProduto";
