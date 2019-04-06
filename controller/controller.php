@@ -1,6 +1,7 @@
 <?php
 include '../utilities/validation.class.php';
 include '../model/produto.class.php';
+include '../DAO/produtosDAO.class.php';
 
 $validation = new Validation();
 
@@ -13,10 +14,15 @@ $quantidade = $_POST['quantidade'];
 
 $produto = new Produto();
 
+$produto->setCodigo($idProduto);
+$produto->setNome($nomeProduto);
+$produto->setTipo($tipoProduto);
+$produto->setValor($valorProduto);
+$produto->setQuantidade($quantidade);
 
 
-
-
+$daoProduto = new DaoProduto();
+$daoProduto->cadastrarProduto($produto);
 
 
     /*

@@ -18,12 +18,44 @@ class Produto{
         unset($this->quantidade);
     }
 
-    public function __get($a){
-        return $this->$a;
+    public function getCodigo(){
+        return $this->codigo;
     }
 
-    public function __set($a, $v){
-        $this->$a = $v;
+    public function setCodigo($codigo){
+        $this->codigo = $codigo;
+    }
+
+    public function getNome(){
+        return $this->nome;
+    }
+
+    public function setNome($nome){
+        $this->nome = $nome;
+    }
+
+    public function getTipo(){
+        return $this->tipo;
+    }
+
+    public function setTipo($tipo){
+        $this->tipo = $tipo;
+    }
+
+    public function getValor(){
+        return $this->valor;
+    }
+
+    public function setValor($valor){
+        $this->valor = $valor;
+    }
+
+    public function getQuantidade(){
+        return $this->quantidade;
+    }
+
+    public function setQuantidade($quantidade){
+        $this->quantidade = $quantidade;
     }
 
     public function __toString(){
