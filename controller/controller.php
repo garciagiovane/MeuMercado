@@ -1,28 +1,54 @@
 <?php
+session_start();
 include '../utilities/validation.class.php';
 include '../model/produto.class.php';
 include '../DAO/produtosDAO.class.php';
 
 $validation = new Validation();
+$erros = array();
 
+if (!$validation->validarCodigoProduto($_POST['codigoProduto'])) {
+    $erros[] = 'Código inválido';
+} 
+if (!$validation->validarString($_POST['nomeProduto'])) {
+    $erros[] = 'Nome do produto inválido';
+}
+if (!$validation->validarString($_POST['tipoProduto'])) {
+    $erros[] = 'Tipo produto inválido';
+}
+if(!$validation->validarValor($_POST['valorProduto'])){
+    $erros[] = 'Valor inválido';
+}
+if (!$validation->validarQuantidade($_POST['quantidade'], $_POST['tipoProduto'])) {
+    $erros[] = 'Quantidade inválida';
+}
 
-$idProduto = $_POST['codigoProduto'];
-$nomeProduto = $_POST['nomeProduto'];
-$tipoProduto = $_POST['tipoProduto'];
-$valorProduto = $_POST['valorProduto'];
-$quantidade = $_POST['quantidade'];
+if (count($erros) == 0) {
+    $produto = new Produto();
+    $daoProduto = new DaoProduto();
 
-$produto = new Produto();
+    $idProduto = $_POST['codigoProduto'];
+    $nomeProduto = $_POST['nomeProduto'];
+    $tipoProduto = $_POST['tipoProduto'];
+    $valorProduto = $_POST['valorProduto'];
+    $quantidade = $_POST['quantidade'];
 
-$produto->setCodigo($idProduto);
-$produto->setNome($nomeProduto);
-$produto->setTipo($tipoProduto);
-$produto->setValor($valorProduto);
-$produto->setQuantidade($quantidade);
-
-
-$daoProduto = new DaoProduto();
-$daoProduto->cadastrarProduto($produto);
+    $produto->setCodigo($idProduto);
+    $produto->setNome($nomeProduto);
+    $produto->setTipo($tipoProduto);
+    $produto->setValor($valorProduto);
+    $produto->setQuantidade($quantidade);
+    
+    $daoProduto->cadastrarProduto($produto); 
+    
+    $_SESSION["respostaCadastroOk"] = "Produto cadastrado!";
+    $location = "Location: ../view/cadastro-produtos.php";
+    header($location);
+} else {
+    $_SESSION["respostaCadastro"] = serialize($erros);
+    $location = "Location: ../view/cadastro-produtos.php";
+    header($location);
+}
 
 
     /*
@@ -33,7 +59,7 @@ $daoProduto->cadastrarProduto($produto);
         echo "<br>Quantidade: $quantidade";
     */
 
-    $idProduto = $validation->validarCodigoProduto($_POST['codigoProduto']);
+    
         
 /*
 require '../DAO/daousuario.class.php';

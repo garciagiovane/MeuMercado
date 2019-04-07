@@ -23,11 +23,12 @@ class DaoProduto{
                 'valorProduto' => $produto->getValor(),
                 'qtdEstoque' => $produto->getQuantidade()
             ));
-            $_SESSION["resposta"] = "Produto cadastrado!";
 
+            $_SESSION["resposta"] = "Produto cadastrado!";
             $enviarParaResposta = "../view/resposta.php";
             header($enviarParaResposta);
         } catch (\Throwable $erro) {
+            
             $_SESSION["resposta"]{0} = $erro->getMessage();
             $_SESSION["resposta"]{1} = $erro->getTrace();
             $enviarParaResposta = "../view/resposta.php";
