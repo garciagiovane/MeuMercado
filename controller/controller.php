@@ -60,7 +60,7 @@ if (isset($_GET["op"])) {
             case 2:
                 $produtosNoBanco = $daoProduto->buscarProdutos();
                 if (count($produtosNoBanco) > 0) {
-                    $_SESSION["produtosNoBanco"] = serialize($produtosNoBanco);
+                    $_SESSION["produtosNoBanco"] = $produtosNoBanco;
                     $location = "Location: ../view/consulta-produtos.php";
                     header($location);
                 } else {

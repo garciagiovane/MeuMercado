@@ -14,33 +14,45 @@
 
             <?php 
                 if (isset($_SESSION["produtosNoBanco"])) {
-                    $produtos = unserialize($_SESSION["produtosNoBanco"]);
-                    foreach ($produtos as $prod){
-                        echo "<table>";
+                    $produtos = $_SESSION["produtosNoBanco"];
+                    
+                        echo "<table class='table table-hover table-dark'>";
                             echo "<thead>";
                                 echo "<tr>";
 
                                     echo "<th scope='col'>Código produto</th>";
                                     echo "<th scope='col'>Nome Produto</th>";
                                     echo "<th scope='col'>Tipo produto</th>";
+                                    echo "<th scope='col'>Valor Produto</th>";
+                                    echo "<th scope='col'>Quantidade</th>";
                                     
                                 echo "</tr>";
                             echo "</thead>";
                             echo "<tbody>";
-                                echo "<tr>";
+                                
+                                foreach ($produtos as $prod){
+                                    echo "<tr>";
                                     echo "<td scope='row'>" . $prod["codigoProduto"] . "</td>";
                                     echo "<td>" . $prod["nomeProduto"] . "</td>";
                                     echo "<td>" . $prod["tipoProduto"] . "</td>";
-                                echo "</tr>";
+                                    echo "<td>" . $prod["valorProduto"] . "</td>";
+                                    echo "<td>" . $prod["qtdEstoque"] . "</td>";
+                                    echo "</tr>";
+                                }
+                                
                             echo "</tbody>";
                         echo "</table>";
-                    }
-                } else {
+                    
+                } else if(isset($_SESSION["erroBuscarProdutosControle"])) {
+                    
                     echo "<div class='alert alert-danger' role='alert'>";
-                        echo "<p>Sem Produtos: consulta-produtos</p>";
-                        
+                        echo "<p>Erro ao buscarProdutos: Controle" . $_SESSION["erroBuscarProdutosControle"] . "</p>";                        
                     echo "</div>";
                     
+                } else {
+                    echo "<div class='alert alert-danger' role='alert'>";
+                        echo "<p>Erro ao buscarProdutos: consulta-produtos</p>";                        
+                    echo "</div>";
                 }
             ?>
 
