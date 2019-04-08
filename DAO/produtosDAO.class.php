@@ -53,4 +53,20 @@ class DaoProduto{
         }
         
     }
+
+    public static function buscarProdutos(){
+        try {
+            $conexao = ConexaoBanco::getInstance();
+            
+            $sql = $conexao->prepare("SELECT * FROM produtos");
+            $sql->execute();
+            $resultado = $sql->fetchAll();
+            
+            return $resultado;
+        } catch (\Throwable $erro) {
+            $_SESSION["erroBuscarProduto"] = $erro->getMessage();
+            $location = "Location: ../view/resposta.php";
+            header($location);
+        }        
+    }
 }

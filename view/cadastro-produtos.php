@@ -7,7 +7,11 @@
 </head>
 <body>
     <div class="container">
-        <form action="../controller/controller.php" method="post">
+    <div class="jumbotron">
+      <h1 class="display-4">MeuMercado!</h1>
+      <p class="lead">Cadastro de Produtos</p>
+      <hr class="my-4">
+      <form action="../controller/controller.php?op=1" method="post">
 
             <div class="form-group row">                
                 <label for="codigoProduto" class="col-sm-2 col-form-label">Código do produto</label>
@@ -68,6 +72,9 @@
 
         }
         ?>
+      
+    </div>
+        
     </div>
 </body>
 </html>
