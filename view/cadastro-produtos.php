@@ -1,14 +1,8 @@
 <?php include("../includes/config.php"); session_start();?>
 <head>
     <?php include("../includes/head-tags.php"); ?>
-    <script type="text/javascript">
-    function telaInicial() {
-        location.href = "index.php";
-    }
-
-        /*document.getElementById("homePage").onclick = function () {
-            location.href = "index.php";
-        };*/
+    <script>
+        
     </script>
 </head>
 <body>
@@ -46,17 +40,17 @@
             <div class="form-group row">
                 <label for="quantidade" class="col-sm-2 col-form-label">Quantidade</label>
                 <div class="col-sm-10">
-                    <input type="number" class="form-control" name="quantidade" id="quantidade" autocomplete="off">
+                    <input type="number" class="form-control" name="quantidade" id="quantidade" autocomplete="off" placeholder="Quantidade">
                 </div>    
             </div>
             
             <button type="submit" class="btn btn-primary btn-lg">Cadastrar</button>
-            <button type="button" class="btn btn-danger btn-lg">Limpar</button>
-            <button type="button" class="btn btn-info btn-lg" id="homePage" onclick="location.href='index.php';">Tela Inicial</button>
+            <!-- <button type="button" class="btn btn-danger btn-lg">Limpar</button> -->
+            <button type="button" class="btn btn-info btn-lg" id="homePage" onclick="location.href='index.php';">Página Inicial</button>
         </form>
         <?php 
-        if(isset($_SESSION["respostaCadastro"])){            
-            $respostaCadastro = unserialize($_SESSION['respostaCadastro']);
+        if(isset($_SESSION["erroCadastro"])){
+            $respostaCadastro = unserialize($_SESSION["erroCadastro"]);
             echo "<div class='alert alert-warning' role='alert'>";
 
             foreach($respostaCadastro as $res){
@@ -64,13 +58,14 @@
             }
 
             echo "</div>";
-            unset($_SESSION["respostaCadastro"]);
+            unset($_SESSION["erroCadastro"]);
         } else if(isset($_SESSION['respostaCadastroOk'])){
+
             echo "<div class='alert alert-primary' role='alert'>";
-            echo "<p>Produto cadastrado com sucesso!</p>";
-            echo "<a href='index'>Página Inicial</a>";
+                echo "<p>Produto cadastrado com sucesso!</p>";
             echo "</div>";
             unset($_SESSION["respostaCadastroOk"]);
+
         }
         ?>
     </div>

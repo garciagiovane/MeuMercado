@@ -1,5 +1,16 @@
 <?php
+include_once "../DAO/produtosDAO.class.php";
 class Validation{
+    
+    public function verificarCodigoBanco($codigoProduto){
+        $compararCodigo = DaoProduto::compararCodigoProduto($codigoProduto);
+        if (count($compararCodigo) > 0) {
+            return true;
+        }else {
+            return false;
+        }
+    }
+    
     public function validarCodigoProduto($codigoProduto){
         $contadorErros = 0;
         

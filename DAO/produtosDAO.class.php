@@ -1,5 +1,6 @@
 <?php
 require '../model/conexaobanco.class.php';
+session_start();
 class DaoProduto{
     private $conexao = null;
     
@@ -24,15 +25,32 @@ class DaoProduto{
                 'qtdEstoque' => $produto->getQuantidade()
             ));
 
-            $_SESSION["resposta"] = "Produto cadastrado!";
-            $enviarParaResposta = "../view/resposta.php";
+            $_SESSION["respostaCadastroOk"] = "Produto cadastrado!";
+            $enviarParaResposta = "Location: ../view/cadastro-produtos.php";
             header($enviarParaResposta);
         } catch (\Throwable $erro) {
             
-            $_SESSION["resposta"]{0} = $erro->getMessage();
-            $_SESSION["resposta"]{1} = $erro->getTrace();
-            $enviarParaResposta = "../view/resposta.php";
+            $_SESSION["erroCadastroDAO"] = $erro->getMessage();
+            $enviarParaResposta = "Location: ../view/resposta.php";
             header($enviarParaResposta);
         }
+    }
+
+    public static function compararCodigoProduto($codigoProduto){
+        try {
+            $conexao = ConexaoBanco::getInstance();
+            
+            $sql = $conexao->prepare("SELECT codigoProduto FROM produtos WHERE codigoProduto = $codigoProduto");
+            $sql->execute();
+            $resultado = $sql->fetchAll();
+            
+            return $resultado;
+            
+        } catch (\Throwable $erro) {
+            $_SESSION["erroComparaCodigo"] = $erro->getMessage();
+            $enviarParaResposta = "Location: ../view/resposta.php";
+            header($enviarParaResposta);
+        }
+        
     }
 }

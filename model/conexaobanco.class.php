@@ -9,13 +9,15 @@ class ConexaoBanco extends PDO{
     public static function getInstance() {
         try {
             if (!isset(self::$instance)) {
-                self::$instance = new PDO('mysql:host=localhost;dbname=mercado', 'root', '');
+                self::$instance = new PDO('mysql:host=localhost;dbname=meu_mercado', 'root', '');
                 self::$instance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);                
             }//fecha if
             return self::$instance;
         } catch (Exception $exc) {
-            echo "<p>Erro: " . $exc->getTraceAsString() . "</p>";
-            echo "<p>Erro: " . $exc->getMessage() . "</p>";
-        }//fecha try...catch
-    }//fecha getInstance
-}//fecha class
+            $_SESSION["erroConexao"] = $exc->getMessage();
+            
+            $location = "Location: ../view/resposta.php";
+            header($location);
+        }
+    }
+}

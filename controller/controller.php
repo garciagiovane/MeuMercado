@@ -1,19 +1,27 @@
 <?php
-session_start();
-include '../utilities/validation.class.php';
-include '../model/produto.class.php';
-include '../DAO/produtosDAO.class.php';
+include_once '../utilities/validation.class.php';
+include_once '../model/produto.class.php';
+include_once '../DAO/produtosDAO.class.php';
 
+session_start();
 $validation = new Validation();
+$daoProduto = new DaoProduto();
 $erros = array();
 
+
+/*if (!$validation->verificarCodigoBanco($_POST['codigoProduto'])) {
+    $erros[] = 'Código já está cadastrado';
+}*/ 
+if ( count($daoProduto->compararCodigoProduto($_POST['codigoProduto'])) > 0) {
+    $erros[] = 'Código já está cadastrado';
+}
 if (!$validation->validarCodigoProduto($_POST['codigoProduto'])) {
     $erros[] = 'Código inválido';
 } 
-if (!$validation->validarString($_POST['nomeProduto'])) {
+if (!$validation->validarString( $_POST['nomeProduto'])) {
     $erros[] = 'Nome do produto inválido';
 }
-if (!$validation->validarString($_POST['tipoProduto'])) {
+if (!$validation->validarString( strtolower($_POST['tipoProduto']))) {
     $erros[] = 'Tipo produto inválido';
 }
 if(!$validation->validarValor($_POST['valorProduto'])){
@@ -25,12 +33,12 @@ if (!$validation->validarQuantidade($_POST['quantidade'], $_POST['tipoProduto'])
 
 if (count($erros) == 0) {
     $produto = new Produto();
-    $daoProduto = new DaoProduto();
+    //$daoProduto = new DaoProduto();
 
     $idProduto = $_POST['codigoProduto'];
-    $nomeProduto = $_POST['nomeProduto'];
+    $nomeProduto = strtolower($_POST['nomeProduto']);
     $tipoProduto = $_POST['tipoProduto'];
-    $valorProduto = $_POST['valorProduto'];
+    $valorProduto = str_replace(",", ".",$_POST['valorProduto']) ;
     $quantidade = $_POST['quantidade'];
 
     $produto->setCodigo($idProduto);
@@ -41,11 +49,8 @@ if (count($erros) == 0) {
     
     $daoProduto->cadastrarProduto($produto); 
     
-    $_SESSION["respostaCadastroOk"] = "Produto cadastrado!";
-    $location = "Location: ../view/cadastro-produtos.php";
-    header($location);
 } else {
-    $_SESSION["respostaCadastro"] = serialize($erros);
+    $_SESSION["erroCadastro"] = serialize($erros);
     $location = "Location: ../view/cadastro-produtos.php";
     header($location);
 }
