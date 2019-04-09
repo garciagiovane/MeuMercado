@@ -35,18 +35,28 @@
             unset($_SESSION["erroBuscarProduto"]);
 
         } else if (isset($_SESSION["erroOpControle"])){
+
             echo "<div class='alert alert-danger' role='alert'>";
                 echo "<p>Operação inválida: Controle</p>";
                 echo $_SESSION["erroOpControle"];
             echo "</div>";
             unset($_SESSION["erroOpControle"]);
-        }
-        else {
+
+        } else if(isset($_SESSION["erroBuscaPorNomeControle"])){
+
+            echo "<div class='alert alert-danger' role='alert'>";
+                echo "<p>Erro busca por parâmetro: Controle</p>";
+                echo $_SESSION["erroBuscaPorNomeControle"];
+            echo "</div>";
+            unset($_SESSION["erroBuscaPorNomeControle"]);
+
+        } else {
             echo "<div class='alert alert-danger' role='alert'>
                     <p>Acesso negado, retorne a <a href='index.php'>página inicial</a></p>  
                 </div>";
         }
     ?>
+    <button type="button" onclick="location.href='index.php';" class="btn btn-danger btn-lg">Página Inicial</button>
     </div>
 </body>
 

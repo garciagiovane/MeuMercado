@@ -69,6 +69,35 @@ if (isset($_GET["op"])) {
                     header($location);
                 }
                 break;
+            case 3:
+                if (!$validation->validarString($_POST["pesquisarPorNome"])) {
+                    $_SESSION["erroBuscaPorNomeControle"] = "Pesquisa Inválida - Nome";
+                    $location = "Location: ../view/resposta.php";
+                    header($location);
+                } else {
+                    $pesq = $_POST["pesquisarPorNome"];
+                    $querySql = "nomeProduto = '$pesq'";
+                    $produtosNoBanco = $daoProduto->buscarProdutosPor($querySql);
+                    $_SESSION["produtosNoBanco"] = $produtosNoBanco;
+                    $location = "Location: ../view/consulta-produtos.php";
+                    header($location);
+                }
+                break;
+            case 4:
+                if (!$validation->validarCodigoProduto($_POST['pesquisarPorCodigo'])) {
+                    $_SESSION["erroBuscaPorNomeControle"] = "Pesquisa Inválida - Código ";
+                    $location = "Location: ../view/resposta.php";
+                    header($location);
+                } else {
+                    $pesq = $_POST["pesquisarPorCodigo"];
+                    $querySql = "codigoProduto = $pesq";
+                    //$querySql = "codigoProduto = " . $_POST["pesquisarPorCodigo"];
+                    $produtosNoBanco = $daoProduto->buscarProdutosPor($querySql);
+                    $_SESSION["produtosNoBanco"] = $produtosNoBanco;
+                    $location = "Location: ../view/consulta-produtos.php";
+                    header($location);
+                }
+                break;
         
         default:
             $_SESSION["erroOpControle"] = "Opção inválida";

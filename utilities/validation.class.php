@@ -44,16 +44,6 @@ class Validation{
                 return false;
             }   
         }
-/*
-        if (!validarCodigoProduto($quantidade) && $tipo != "carne") {         
-            $contadorErros += 1;
-        }
-        
-        if ($contadorErros > 0) {
-            return false;
-        } else {
-            return true;
-        }*/
     }
 
     public function validarValor($valor){
