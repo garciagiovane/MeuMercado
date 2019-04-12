@@ -40,7 +40,8 @@ class DaoProduto{
         try {
             $conexao = ConexaoBanco::getInstance();
             
-            $sql = $conexao->prepare("SELECT codigoProduto FROM produtos WHERE codigoProduto = $codigoProduto");
+            //$sql = $conexao->prepare("SELECT codigoProduto FROM produtos WHERE codigoProduto = $codigoProduto");
+            $sql = $conexao->prepare("SELECT codigoProduto FROM produtos WHERE codigoProduto = '$codigoProduto'");
             $sql->execute();
             $resultado = $sql->fetchAll();
             
@@ -84,5 +85,21 @@ class DaoProduto{
             $location = "Location: ../view/resposta.php";
             header($location);
         }        
+    }
+
+    public static function excluirProduto($codigoProduto){
+        try {
+            $conexao = ConexaoBanco::getInstance();
+            
+            $sql = $conexao->prepare("DELETE FROM produtos WHERE codigoProduto = $codigoProduto");
+            $sql->execute();
+            $resultado = $sql->fetchAll();
+            
+            return $resultado;
+        } catch (\Throwable $th) {
+            $_SESSION["erroExcluirProduto"] = $erro->getMessage();
+            $location = "Location: ../view/resposta.php";
+            header($location);
+        }
     }
 }

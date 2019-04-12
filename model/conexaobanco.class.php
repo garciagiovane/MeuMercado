@@ -2,7 +2,7 @@
 class ConexaoBanco extends PDO{
     public static $instance;
   
-    private function __construct($dsn,$usuario,$senha) {
+    public function __construct($dsn,$usuario,$senha) {
         parent::__construct($dsn,$usuario,$senha);
     }
   

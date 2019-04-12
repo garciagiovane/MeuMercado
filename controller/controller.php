@@ -3,7 +3,6 @@ include_once '../utilities/validation.class.php';
 include_once '../model/produto.class.php';
 include_once '../DAO/produtosDAO.class.php';
 
-session_start();
 $validation = new Validation();
 $daoProduto = new DaoProduto();
 
@@ -26,7 +25,7 @@ if (isset($_GET["op"])) {
             if (!$validation->validarString( strtolower($_POST['tipoProduto']))) {
                 $erros[] = 'Tipo produto inválido';
             }
-            if(!$validation->validarValor($_POST['valorProduto'])){
+            if(!$validation->validarValor(str_replace(",", ".",$_POST['valorProduto']))){
                 $erros[] = 'Valor inválido';
             }
             if (!$validation->validarQuantidade($_POST['quantidade'], $_POST['tipoProduto'])) {
@@ -84,21 +83,23 @@ if (isset($_GET["op"])) {
                 }
                 break;
             case 4:
-                if (!$validation->validarCodigoProduto($_POST['pesquisarPorCodigo'])) {
-                    $_SESSION["erroBuscaPorNomeControle"] = "Pesquisa Inválida - Código ";
+                if (!$validation->validarString($_POST['pesquisarPorTipo'])) {
+                    //!$validation->validarCodigoProduto($_POST['pesquisarPorCodigo'])
+                    $_SESSION["erroBuscaPorNomeControle"] = "Pesquisa Inválida - Tipo ";
                     $location = "Location: ../view/resposta.php";
                     header($location);
                 } else {
-                    $pesq = $_POST["pesquisarPorCodigo"];
-                    $querySql = "codigoProduto = $pesq";
+                    $pesq = $_POST["pesquisarPorTipo"];
+                    $querySql = "tipoProduto = '$pesq'";
                     //$querySql = "codigoProduto = " . $_POST["pesquisarPorCodigo"];
                     $produtosNoBanco = $daoProduto->buscarProdutosPor($querySql);
                     $_SESSION["produtosNoBanco"] = $produtosNoBanco;
                     $location = "Location: ../view/consulta-produtos.php";
                     header($location);
-                }
+                }break;
+            case 5:
+                    
                 break;
-        
         default:
             $_SESSION["erroOpControle"] = "Opção inválida";
             $location = "Location: ../view/resposta.php";

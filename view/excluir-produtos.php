@@ -9,7 +9,7 @@
     <div class="container">
         <div class="jumbotron">
             <h1 class="display-4">MeuMercado!</h1>
-            <p class="lead">Consulta de Produtos</p>
+            <p class="lead">Exclusão de Produtos</p>
             <hr class="my-4">
             <form action="../controller/controller.php?op=3" method="POST" class="">
                 <div class="input-group mb-3">
@@ -19,7 +19,6 @@
                     </div>
                 </div>
             </form>
-            
             <form action="../controller/controller.php?op=4" method="POST">
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" id="pesquisarPorTipo" name="pesquisarPorTipo" placeholder="Pesquisar produto por tipo" aria-label="Recipient's username" aria-describedby="button-addon2">
@@ -34,16 +33,17 @@
             <?php 
                 if (isset($_SESSION["produtosNoBanco"])) {
                     $produtos = $_SESSION["produtosNoBanco"];
-                    
+
                         echo "<table class='table table-hover table-dark'>";
                             echo "<thead>";
-                                echo "<tr>";
+                                echo "<tr style='text-align: center'>";
 
                                     echo "<th scope='col'>Código produto</th>";
                                     echo "<th scope='col'>Nome Produto</th>";
                                     echo "<th scope='col'>Tipo produto</th>";
                                     echo "<th scope='col'>Valor Produto</th>";
                                     echo "<th scope='col'>Quantidade</th>";
+                                    echo "<th scope='col'>Excluir</th>";
                                     
                                 echo "</tr>";
                             echo "</thead>";
@@ -51,17 +51,18 @@
                                 
                                 foreach ($produtos as $prod){
                                     echo "<tr>";
-                                    echo "<td scope='row'>" . $prod["codigoProduto"] . "</td>";
-                                    echo "<td>" . $prod["nomeProduto"] . "</td>";
-                                    echo "<td>" . $prod["tipoProduto"] . "</td>";
-                                    echo "<td>" . $prod["valorProduto"] . "</td>";
-                                    echo "<td>" . $prod["qtdEstoque"] . "</td>";
+                                    echo "<td style='text-align: center' scope='row'>" . $prod["codigoProduto"] ."</td>";
+                                    echo "<td style='text-align: center'>" . $prod["nomeProduto"] . "</td>";
+                                    echo "<td style='text-align: center'>" . $prod["tipoProduto"] . "</td>";
+                                    echo "<td style='text-align: center'>" . $prod["valorProduto"] . "</td>";
+                                    echo "<td style='text-align: center'>" . $prod["qtdEstoque"] . "</td>";
+                                    echo "<td style='text-align: center;'><a title='Clique para excluir' style='color: red;' href='../controller/controller.php?op=5?codExclusao=" . $prod["codigoProduto"] . "'>X</a></td>";
                                     echo "</tr>";
                                 }
                                 
                             echo "</tbody>";
                         echo "</table>";
-                    
+
                 } else if(isset($_SESSION["erroBuscarProdutosControle"])) {
                     
                     echo "<div class='alert alert-danger' role='alert'>";
