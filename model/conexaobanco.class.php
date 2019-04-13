@@ -2,7 +2,7 @@
 class ConexaoBanco extends PDO{
     public static $instance;
   
-    private function __construct($dsn,$usuario,$senha) {
+    public function __construct($dsn,$usuario,$senha) {
         parent::__construct($dsn,$usuario,$senha);
     }
   
@@ -14,8 +14,10 @@ class ConexaoBanco extends PDO{
             }//fecha if
             return self::$instance;
         } catch (Exception $exc) {
-            echo "<p>Erro: " . $exc->getTraceAsString() . "</p>";
-            echo "<p>Erro: " . $exc->getMessage() . "</p>";
-        }//fecha try...catch
-    }//fecha getInstance
-}//fecha class
+            $_SESSION["erroConexao"] = $exc->getMessage();
+            
+            $location = "Location: ../view/resposta.php";
+            header($location);
+        }
+    }
+}

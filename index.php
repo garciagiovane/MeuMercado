@@ -1,3 +1,3 @@
 <?php
-    $location = "Location: view/home.php";
+  $location = "Location: view";
   header($location);
