@@ -20,7 +20,7 @@
             <a class="list-group-item list-group-item-light" href="../controller/controller.php?op=2">Consultar Produtos</a> 
           </li>
           <li class="nav-item">
-            <a class="list-group-item list-group-item-light" href="excluir-produtos.php">Excluir Produtos</a>
+            <a class="list-group-item list-group-item-light" href="#">Excluir Produtos</a>
           </li>
         </ul>
       </div>

@@ -69,12 +69,12 @@ if (isset($_GET["op"])) {
                 }
                 break;
             case 3:
-                if (!$validation->validarString($_POST["pesquisarPorNome"])) {
-                    $_SESSION["erroBuscaPorNomeControle"] = "Pesquisa Inválida - Nome";
+                if (!$validation->validarString($_POST['pesquisarPorTipo1'])) {
+                    $_SESSION["erroBuscaPorNomeControle"] = "Pesquisa Inválida - Nome: " . $_POST['pesquisarPorTipo1'];
                     $location = "Location: ../view/resposta.php";
                     header($location);
                 } else {
-                    $pesq = $_POST["pesquisarPorNome"];
+                    $pesq = $_POST["pesquisarPorTipo1"];
                     $querySql = "nomeProduto = '$pesq'";
                     $produtosNoBanco = $daoProduto->buscarProdutosPor($querySql);
                     $_SESSION["produtosNoBanco"] = $produtosNoBanco;
@@ -83,8 +83,7 @@ if (isset($_GET["op"])) {
                 }
                 break;
             case 4:
-                if (!$validation->validarString($_POST['pesquisarPorTipo'])) {
-                    //!$validation->validarCodigoProduto($_POST['pesquisarPorCodigo'])
+                if (!$validation->validarString($_POST['pesquisarPorTipo'])) {                    
                     $_SESSION["erroBuscaPorNomeControle"] = "Pesquisa Inválida - Tipo ";
                     $location = "Location: ../view/resposta.php";
                     header($location);
@@ -98,7 +97,28 @@ if (isset($_GET["op"])) {
                     header($location);
                 }break;
             case 5:
-                    
+                    if(!$validation->validarCodigoProduto($_GET['codExclusao'])){
+                        $_SESSION["erroExcluirNoControle"] = "Código inválido - controle: código " . $_GET['codExclusao'];
+                        $location = "Location: ../view/excluir-produtos.php";
+                        header($location);
+                    }else {
+                        $daoProduto->excluirProduto($_GET['codExclusao']);
+                        $_SESSION["sucessoExcluirNoControle"] = "Produto excluído";
+                        $location = "Location: ../controller/controller.php?op=2";
+                        header($location);
+                    }
+                break;
+            case 6:
+            $produtosNoBanco = $daoProduto->buscarProdutos();
+            if (count($produtosNoBanco) > 0) {
+                $_SESSION["produtosNoBanco"] = $produtosNoBanco;
+                $location = "Location: ../view/excluir-produtos.php";
+                header($location);
+            } else {
+                $_SESSION["erroBuscarProdutosControle"] = "Sem podutos cadastrados";
+                $location = "Location: ../view/consulta-produtos.php";
+                header($location);
+            }
                 break;
         default:
             $_SESSION["erroOpControle"] = "Opção inválida";

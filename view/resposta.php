@@ -43,7 +43,7 @@
             unset($_SESSION["erroOpControle"]);
 
         } else if(isset($_SESSION["erroBuscaPorNomeControle"])){
-
+            
             echo "<div class='alert alert-danger' role='alert'>";
                 echo "<p>Erro busca por parâmetro: Controle</p>";
                 echo $_SESSION["erroBuscaPorNomeControle"];

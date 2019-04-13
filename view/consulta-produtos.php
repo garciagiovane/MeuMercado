@@ -11,18 +11,17 @@
             <h1 class="display-4">MeuMercado!</h1>
             <p class="lead">Consulta de Produtos</p>
             <hr class="my-4">
-            <form action="../controller/controller.php?op=3" method="POST" class="">
+            <form action="../controller/controller.php?op=3" method="POST">
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" name="pesquisarPorNome" placeholder="Pesquisar produto por nome" aria-label="Example text with button addon" aria-describedby="button-addon1">
+                <input type="text" autocomplete="off" class="form-control" id="pesquisarPorTipo1" name="pesquisarPorTipo1" placeholder="Pesquisar produto por nome" aria-label="Recipient's username" aria-describedby="button-addon2">
                     <div class="input-group-append">
                         <button class="btn btn-primary" type="submit" id="pesquisarPorNome" name="pesquisarPorNome">Pesquisar</button>
                     </div>
                 </div>
-            </form>
-            
+            </form>            
             <form action="../controller/controller.php?op=4" method="POST">
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" id="pesquisarPorTipo" name="pesquisarPorTipo" placeholder="Pesquisar produto por tipo" aria-label="Recipient's username" aria-describedby="button-addon2">
+                    <input type="text" autocomplete="off" class="form-control" id="pesquisarPorTipo" name="pesquisarPorTipo" placeholder="Pesquisar produto por tipo" aria-label="Recipient's username" aria-describedby="button-addon2">
                     <div class="input-group-append">
                         <button class="btn btn-primary" type="submit" >Pesquisar</button>
                     </div>
@@ -32,6 +31,13 @@
             <button type="button" class="btn btn-success btn-lg" onclick="location.href='../controller/controller.php?op=2';">Atualizar</button>
             <hr class="my-4">
             <?php 
+                
+                    if (isset($_SESSION['sucessoExcluirNoControle'])) {
+                        echo "<div class='alert alert-primary' role='alert'>";
+                            echo "<p>" . $_SESSION['sucessoExcluirNoControle'] . "</p>";
+                        echo "</div>";
+                        unset($_SESSION["sucessoExcluirNoControle"]);
+                    }
                 if (isset($_SESSION["produtosNoBanco"])) {
                     $produtos = $_SESSION["produtosNoBanco"];
                     
@@ -44,6 +50,7 @@
                                     echo "<th scope='col'>Tipo produto</th>";
                                     echo "<th scope='col'>Valor Produto</th>";
                                     echo "<th scope='col'>Quantidade</th>";
+                                    echo "<th scope='col'>Excluir</th>";
                                     
                                 echo "</tr>";
                             echo "</thead>";
@@ -56,6 +63,7 @@
                                     echo "<td>" . $prod["tipoProduto"] . "</td>";
                                     echo "<td>" . $prod["valorProduto"] . "</td>";
                                     echo "<td>" . $prod["qtdEstoque"] . "</td>";
+                                    echo "<td style='text-align: center;'><a title='Clique para excluir' style='color: red;' href='../controller/controller.php?op=5&codExclusao=".$prod["codigoProduto"]."'>X</a></td>";
                                     echo "</tr>";
                                 }
                                 
