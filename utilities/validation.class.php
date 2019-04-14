@@ -25,7 +25,7 @@ class Validation{
     }
 
     public function validarString($nomeProduto){
-        $regex = '/^[a-záàâãéèêíïóôõöúçñ ]+$/';
+        $regex = '/^[A-Za-záàâãéèêíïóôõöúçñ ]+$/';
         return preg_match($regex, $nomeProduto);
     }
 

@@ -10,7 +10,7 @@ class ConexaoBanco extends PDO{
         try {
             if (!isset(self::$instance)) {
                 self::$instance = new PDO('mysql:host=mysql995.umbler.com;dbname=meu_mercado', 'giovanegarcia', 'testesoftware');
-                //self::$instance = new PDO('mysql:host=localhost;dbname=meu_mercado', 'root', '');
+              <<<<<<< dev
                 self::$instance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);                
             }//fecha if
             return self::$instance;

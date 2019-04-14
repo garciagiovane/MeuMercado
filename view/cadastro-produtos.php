@@ -1,4 +1,4 @@
-<?php include("../includes/config.php"); session_start();?>
+<?php include("../includes/config.php"); header('Content-Type: text/html; charset=utf-8'); session_start();?>
 <head>
     <?php include("../includes/head-tags.php"); ?>
     <script>
@@ -12,14 +12,14 @@
       <p class="lead">Cadastro de Produtos</p>
       <hr class="my-4">
       <form action="../controller/controller.php?op=1" method="post">
-
+<!--
             <div class="form-group row">                
                 <label for="codigoProduto" class="col-sm-2 col-form-label">Código do produto</label>
                 <div class="col-sm-10">
                     <input type="number" class="form-control" name="codigoProduto" id="codigoProduto" placeholder="Digite aqui o código" autocomplete="off">
                 </div>                
             </div>
-
+-->
             <div class="form-group row">
                 <label for="nomeProduto" class="col-sm-2 col-form-label">Nome do produto</label>
                 <div class="col-sm-10">
