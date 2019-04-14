@@ -37,6 +37,11 @@
                             echo "<p>" . $_SESSION['sucessoExcluirNoControle'] . "</p>";
                         echo "</div>";
                         unset($_SESSION["sucessoExcluirNoControle"]);
+                    } else if (isset($_SESSION["sucessoAlterarValorProduto"])){
+                        echo "<div class='alert alert-primary' role='alert'>";
+                            echo "<p>" . $_SESSION["sucessoAlterarValorProduto"] . "</p>";
+                        echo "</div>";
+                        unset($_SESSION["sucessoAlterarValorProduto"]);
                     }
                 if (isset($_SESSION["produtosNoBanco"])) {
                     $produtos = $_SESSION["produtosNoBanco"];
@@ -51,7 +56,7 @@
                                     echo "<th scope='col'>Valor Produto</th>";
                                     echo "<th scope='col'>Quantidade</th>";
                                     echo "<th scope='col'>Excluir</th>";
-                                    
+                                    echo "<th scope='col'>Alterar</th>";
                                 echo "</tr>";
                             echo "</thead>";
                             echo "<tbody>";
@@ -64,6 +69,7 @@
                                     echo "<td>" . $prod["valorProduto"] . "</td>";
                                     echo "<td>" . $prod["qtdEstoque"] . "</td>";
                                     echo "<td style='text-align: center;'><a title='Clique para excluir' style='color: red;' href='../controller/controller.php?op=5&codExclusao=".$prod["codigoProduto"]."'>X</a></td>";
+                                    echo "<td style='text-align: center;'><a title='Clique para excluir' style='color: red;' href='../controller/controller.php?op=8&codAlteracao=".$prod["codigoProduto"]."'>X</a></td>";
                                     echo "</tr>";
                                 }
                                 
@@ -80,7 +86,15 @@
                     echo "<div class='alert alert-danger' role='alert'>";
                         echo "<p>Erro ao buscarProdutos: Controle" . $_SESSION["erroBuscaPorNomeControle"] . "</p>";                        
                     echo "</div>";
-                } else {
+                } else if (isset($_SESSION["erroBuscarProdutosCase8"])){
+                    echo "<div class='alert alert-danger' role='alert'>";
+                        echo "<p>Erro ao buscarProdutos: Controle" . $_SESSION["erroBuscarProdutosCase8"] . "</p>";                        
+                    echo "</div>";
+                } else if (isset($_SESSION["erroAlterarValorProduto"])){
+                    echo "<div class='alert alert-danger' role='alert'>";
+                        echo $_SESSION["erroAlterarValorProduto"];
+                    echo "</div>";
+                }else {
                     echo "<div class='alert alert-danger' role='alert'>";
                         echo "<p>Erro ao buscarProdutos: consulta-produtos</p>";                        
                     echo "</div>";
