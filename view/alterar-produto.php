@@ -1,10 +1,6 @@
-<?php include("../includes/config.php");
-session_start(); ?>
-
+<?php include("../includes/config.php"); session_start(); ?>
 <head>
     <?php include("../includes/head-tags.php"); ?>
-    <script>
-    </script>
 </head>
 
 <body>
@@ -36,14 +32,13 @@ session_start(); ?>
             }
             ?>
             <form action="../controller/controller.php?op=7" method="post">
-
+            
                 <div class="form-group row">
                     <label for="codigoProduto" class="col-sm-2 col-form-label">Código do produto</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" name="codigoProduto" id="codigoProduto" value="<?php echo $codigo ?>" readonly>
                     </div>
                 </div>
-
                 <div class="form-group row">
                     <label for="nomeProduto" class="col-sm-2 col-form-label">Nome do produto</label>
                     <div class="col-sm-10">

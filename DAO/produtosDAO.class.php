@@ -16,9 +16,8 @@ class DaoProduto{
     public static function cadastrarProduto(Produto $produto){
         try {
             $conexao = ConexaoBanco::getInstance();
-            $sqlCadastro = $conexao->prepare("INSERT INTO produtos(codigoProduto, nomeProduto, tipoProduto, valorProduto, qtdEstoque) VALUES (:idProduto, :nomeProduto, :tipoProduto, :valorProduto, :qtdEstoque)");
+            $sqlCadastro = $conexao->prepare("INSERT INTO produtos(codigoProduto, nomeProduto, tipoProduto, valorProduto, qtdEstoque) VALUES (null, :nomeProduto, :tipoProduto, :valorProduto, :qtdEstoque)");
             $sqlCadastro->execute(array(
-                ':idProduto' => $produto->getCodigo(),
                 'nomeProduto' => $produto->getNome(),
                 'tipoProduto' => $produto->getTipo(),
                 'valorProduto' => $produto->getValor(),

@@ -13,16 +13,16 @@ if (isset($_GET["op"])) {
         case 1:
             $erros = array();
 
-            if (count($daoProduto->compararCodigoProduto($_POST['codigoProduto'])) > 0) {
+            /*if (count($daoProduto->compararCodigoProduto($_POST['codigoProduto'])) > 0) {
                 $erros[] = 'Código já está cadastrado';
             }
             if (!$validation->validarCodigoProduto($_POST['codigoProduto'])) {
                 $erros[] = 'Código inválido';
-            }
+            }*/
             if (!$validation->validarString($_POST['nomeProduto'])) {
                 $erros[] = 'Nome do produto inválido';
             }
-            if (!$validation->validarString(strtolower($_POST['tipoProduto']))) {
+            if (!$validation->validarString($_POST['tipoProduto'])) {
                 $erros[] = 'Tipo produto inválido';
             }
             if (!$validation->validarValor(str_replace(",", ".", $_POST['valorProduto']))) {
@@ -38,7 +38,7 @@ if (isset($_GET["op"])) {
 
                 $idProduto = $_POST['codigoProduto'];
                 $nomeProduto = strtolower($_POST['nomeProduto']);
-                $tipoProduto = $_POST['tipoProduto'];
+                $tipoProduto = strtolower($_POST['tipoProduto']);
                 $valorProduto = str_replace(",", ".", $_POST['valorProduto']);
                 $quantidade = $_POST['quantidade'];
 
@@ -155,30 +155,3 @@ if (isset($_GET["op"])) {
     $location = "Location: ../view/resposta.php";
     header($location);
 }
-
-
-
-
-
-
-    /*
-        echo "IdProduto: $idProduto";
-        echo "<br>Nome: $nomeProduto";
-        echo "<br>Tipo: $tipoProduto";
-        echo "<br>Valor: $valorProduto";
-        echo "<br>Quantidade: $quantidade";
-    */
-
-    
-        
-/*
-require '../DAO/daousuario.class.php';
-$usuarios = DaoUsuario::buscarTodos();
-foreach ($usuarios as $user){
-    echo "<tr>";
-    echo "<td scope='row'>" . $user['codigoUsuario'] . "</td>";
-    echo "<td>" . $user['nomeUsuario'] . "</td>";
-    echo "<td>" . $user['cargo'] . "</td>";
-    echo "</tr>";
-}
-*/
