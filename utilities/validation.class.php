@@ -1,5 +1,5 @@
 <?php
-include_once "../DAO/produtosDAO.class.php";
+include "../DAO/produtosDAO.class.php";
 class Validation{
     
     public function verificarCodigoBanco($codigoProduto){

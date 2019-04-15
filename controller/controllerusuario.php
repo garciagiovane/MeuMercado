@@ -1,7 +1,7 @@
 <?php 
 header('Content-Type: text/html; charset=utf-8');
 include "../DAO/daousuario.class.php";
-require '../utilities/validation.class.php';
+include '../utilities/validation.class.php';
 
 $validation = new Validation();
 if (isset($_GET["op"])) {

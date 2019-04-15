@@ -145,6 +145,14 @@ if (isset($_GET["op"])) {
                 header($location);
             }
             break;
+        case 9: 
+            $erros = Array();
+            if (!$validation->validarString($_POST["nomeUsuario"])) {
+                $erros[] = "Nome inválido!";
+            } else if ($_POST["senhaUsuario"] != $_POST["confirmarSenhaUsuario"]) {
+                $erros[] = "Senha não confere";
+            }
+         break;   
         default:
             $_SESSION["erroOpControle"] = "Opção inválida";
             $location = "Location: ../view/resposta.php";
