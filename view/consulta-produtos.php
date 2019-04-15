@@ -1,6 +1,6 @@
-<?php include("../includes/config.php"); session_start();?>
+<?php require("../includes/config.php"); session_start(); header('Content-Type: text/html; charset=utf-8');?>
 <head>
-    <?php include("../includes/head-tags.php"); ?>
+    <?php require("../includes/head-tags.php"); ?>
     <script>
         
     </script>

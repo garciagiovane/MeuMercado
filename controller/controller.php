@@ -1,4 +1,5 @@
-<?php
+<?php header('Content-Type: text/html; charset=utf-8');
+
 include_once '../utilities/validation.class.php';
 include_once '../model/produto.class.php';
 include_once '../DAO/produtosDAO.class.php';
@@ -37,8 +38,8 @@ if (isset($_GET["op"])) {
                 //$daoProduto = new DaoProduto();
 
                 $idProduto = $_POST['codigoProduto'];
-                $nomeProduto = strtolower($_POST['nomeProduto']);
-                $tipoProduto = strtolower($_POST['tipoProduto']);
+                $nomeProduto = mb_strtolower($_POST['nomeProduto'], "UTF-8");
+                $tipoProduto = mb_strtolower($_POST['tipoProduto'], "UTF-8");
                 $valorProduto = str_replace(",", ".", $_POST['valorProduto']);
                 $quantidade = $_POST['quantidade'];
 

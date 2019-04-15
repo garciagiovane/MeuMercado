@@ -1,6 +1,8 @@
 <?php
-require '../model/conexaobanco.class.php';
+header('Content-Type: text/html; charset=utf-8');
 session_start();
+require '../model/conexaobanco.class.php';
+
 class DaoProduto{
     private $conexao = null;
     

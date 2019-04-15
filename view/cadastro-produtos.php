@@ -1,6 +1,6 @@
-<?php include("../includes/config.php"); header('Content-Type: text/html; charset=utf-8'); session_start();?>
+<?php require("../includes/config.php"); session_start(); header('Content-Type: text/html; charset=utf-8');?>
 <head>
-    <?php include("../includes/head-tags.php"); ?>
+    <?php require("../includes/head-tags.php"); ?>
     <script>
         
     </script>
@@ -66,7 +66,7 @@
         } else if(isset($_SESSION['respostaCadastroOk'])){
 
             echo "<div class='alert alert-primary' role='alert'>";
-                echo "<p>Produto cadastrado com sucesso!</p>";
+                echo $_SESSION["respostaCadastroOk"];
             echo "</div>";
             unset($_SESSION["respostaCadastroOk"]);
 

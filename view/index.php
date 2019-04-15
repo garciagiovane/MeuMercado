@@ -23,7 +23,7 @@
             <a class="list-group-item list-group-item-light" href="alterar-produto.php">Excluir Produtos</a>
           </li>
           <li class="nav-item">
-            <a class="list-group-item list-group-item-light" href="alterar-produto.php">Cadastrar funcionário</a>
+            <a class="list-group-item list-group-item-light" href="cadastro-usuario.php">Cadastrar funcionário</a>
           </li>
         </ul>
       </div>
