@@ -103,7 +103,7 @@ if (isset($_GET["op"])) {
             } else {
                 $daoProduto->excluirProduto($_GET['codExclusao']);
                 $_SESSION["sucessoExcluirNoControle"] = "Produto excluído";
-                $location = "Location: ../controller/controller.php?op=2";
+                $location = "Location: controller.php?op=2";
                 header($location);
             }
             break;
