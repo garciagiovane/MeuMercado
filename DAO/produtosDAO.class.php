@@ -1,6 +1,8 @@
 <?php
-require '../model/conexaobanco.class.php';
+header('Content-Type: text/html; charset=utf-8');
 session_start();
+require '../model/conexaobanco.class.php';
+
 class DaoProduto{
     private $conexao = null;
     
@@ -92,9 +94,8 @@ class DaoProduto{
             
             $sql = $conexao->prepare("DELETE FROM produtos WHERE codigoProduto=".$codigoProduto);
             $sql->execute();
-            $resultado = $sql->fetchAll();
             
-            return $resultado;
+            return true;
         } catch (\Throwable $erro) {
             $_SESSION["erroExcluirProduto"] = $erro->getMessage();
             $location = "Location: ../view/resposta.php";

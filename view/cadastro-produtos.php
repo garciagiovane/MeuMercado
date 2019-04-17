@@ -1,10 +1,4 @@
-<?php include("../includes/config.php"); header('Content-Type: text/html; charset=utf-8'); session_start();?>
-<head>
-    <?php include("../includes/head-tags.php"); ?>
-    <script>
-        
-    </script>
-</head>
+<?php require("../includes/config.php"); session_start(); header('Content-Type: text/html; charset=utf-8'); require("../includes/head-tags.php"); ?>
 <body>
     <div class="container">
     <div class="jumbotron">
@@ -55,7 +49,7 @@
         <?php 
         if(isset($_SESSION["erroCadastro"])){
             $respostaCadastro = unserialize($_SESSION["erroCadastro"]);
-            echo "<div class='alert alert-warning' role='alert'>";
+            echo "<hr class='my4'><div class='alert alert-warning' role='alert'>";
 
             foreach($respostaCadastro as $res){
                 echo "<p>" . $res . "</p>";
@@ -65,8 +59,8 @@
             unset($_SESSION["erroCadastro"]);
         } else if(isset($_SESSION['respostaCadastroOk'])){
 
-            echo "<div class='alert alert-primary' role='alert'>";
-                echo "<p>Produto cadastrado com sucesso!</p>";
+            echo "<hr class='my4'><div class='alert alert-primary' role='alert'>";
+                echo $_SESSION["respostaCadastroOk"];
             echo "</div>";
             unset($_SESSION["respostaCadastroOk"]);
 

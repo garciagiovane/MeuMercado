@@ -1,9 +1,4 @@
-<?php include("../includes/config.php"); header('Content-Type: text/html; charset=utf-8'); ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<?php include("../includes/head-tags.php"); ?>
-</head>
+<?php include("../includes/config.php"); header('Content-Type: text/html; charset=utf-8'); include("../includes/head-tags.php"); ?>
 <body>
   <div class="container">
     <div class="jumbotron">
@@ -23,7 +18,7 @@
             <a class="list-group-item list-group-item-light" href="alterar-produto.php">Excluir Produtos</a>
           </li>
           <li class="nav-item">
-            <a class="list-group-item list-group-item-light" href="alterar-produto.php">Cadastrar funcionário</a>
+            <a class="list-group-item list-group-item-light" href="cadastro-usuario.php">Cadastrar funcionário</a>
           </li>
         </ul>
       </div>

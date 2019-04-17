@@ -28,13 +28,13 @@ SET time_zone = "+00:00";
 -- Estrutura da tabela `produtos`
 --
 
-CREATE TABLE `produtos` (
-  `codigoProduto` int(11) NOT NULL PRIMARY KEY,
-  `nomeProduto` varchar(255) NOT NULL,
-  `tipoProduto` varchar(255) NOT NULL,
-  `valorProduto` double NOT NULL,
-  `qtdEstoque` int(11) NOT NULL
-);
+CREATE TABLE produtos (
+  codigoProduto int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  nomeProduto varchar(255) NOT NULL,
+  tipoProduto varchar(255) NOT NULL,
+  valorProduto double NOT NULL,
+  qtdEstoque int(11) NOT NULL
+) CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 -- --------------------------------------------------------
 
@@ -42,12 +42,12 @@ CREATE TABLE `produtos` (
 -- Estrutura da tabela `usuarios`
 --
 
-CREATE TABLE `usuarios` (
-  `codigoUsuario` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  `nomeUsuario` varchar(255) NOT NULL,
-  `senhaUsuario` varchar(255) NOT NULL,
-  `cargo` varchar(50) NOT NULL
-);
+CREATE TABLE usuarios (
+  codigoUsuario int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  nomeUsuario varchar(255) NOT NULL,
+  senhaUsuario varchar(255) NOT NULL,
+  cargo varchar(50) NOT NULL
+) CHARACTER SET utf8 COLLATE utf8_general_ci;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
