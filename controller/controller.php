@@ -1,4 +1,5 @@
-<?php
+<?php header('Content-Type: text/html; charset=utf-8');
+
 include_once '../utilities/validation.class.php';
 include_once '../model/produto.class.php';
 include_once '../DAO/produtosDAO.class.php';
@@ -34,11 +35,10 @@ if (isset($_GET["op"])) {
 
             if (count($erros) == 0) {
                 $produto = new Produto();
-                //$daoProduto = new DaoProduto();
 
                 $idProduto = $_POST['codigoProduto'];
-                $nomeProduto = strtolower($_POST['nomeProduto']);
-                $tipoProduto = strtolower($_POST['tipoProduto']);
+                $nomeProduto = mb_strtolower($_POST['nomeProduto'], "UTF-8");
+                $tipoProduto = mb_strtolower($_POST['tipoProduto'], "UTF-8");
                 $valorProduto = str_replace(",", ".", $_POST['valorProduto']);
                 $quantidade = $_POST['quantidade'];
 
@@ -120,7 +120,7 @@ if (isset($_GET["op"])) {
             }
             break;
         case 7:
-            if(!$validation->validarQuantidade($_POST['quantidade'], $_POST['tipoProduto']) && !$validation->validarValor(str_replace(",", ".", $_POST['valorProduto'])) && $daoProduto->compararCodigoProduto($_POST["codigoProduto"])){
+            if (!$validation->validarQuantidade($_POST['quantidade'], $_POST['tipoProduto']) && !$validation->validarValor(str_replace(",", ".", $_POST['valorProduto'])) && $daoProduto->compararCodigoProduto($_POST["codigoProduto"])) {
                 $_SESSION["erroAlterarValorProduto"] = "Erro ao alterar valor!";
                 $location = "Location: ../view/consulta-produtos.php";
                 header($location);
@@ -142,6 +142,14 @@ if (isset($_GET["op"])) {
                 $_SESSION["produtoPorId"] = $produtoNoBanco;
                 $location = "Location: ../view/alterar-produto.php";
                 header($location);
+            }
+            break;
+        case 9:
+            $erros = array();
+            if (!$validation->validarString($_POST["nomeUsuario"])) {
+                $erros[] = "Nome inválido!";
+            } else if ($_POST["senhaUsuario"] != $_POST["confirmarSenhaUsuario"]) {
+                $erros[] = "Senha não confere";
             }
             break;
         default:

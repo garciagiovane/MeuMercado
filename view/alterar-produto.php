@@ -1,8 +1,4 @@
-<?php include("../includes/config.php"); session_start(); ?>
-<head>
-    <?php include("../includes/head-tags.php"); ?>
-</head>
-
+<?php require("../includes/config.php"); session_start(); header('Content-Type: text/html; charset=utf-8'); require("../includes/head-tags.php");?>
 <body>
     <div class="container">
         <div class="jumbotron">
