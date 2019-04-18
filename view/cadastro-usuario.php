@@ -48,6 +48,11 @@
                     }
                     echo "</div>";
                     unset($_SESSION["erroCadastroUsuario"]);
+                } else if(isset($_SESSION["usuarioCadastrado"])) {
+                    echo "<hr class='my4'><div class='alert alert-primary' role='alert'>";
+                        echo $_SESSION["usuarioCadastrado"];
+                    echo "</div>";
+                    unset($_SESSION["respostaCadastroOk"]);
                 }
             ?>
         </div>

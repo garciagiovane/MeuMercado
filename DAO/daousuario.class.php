@@ -1,18 +1,29 @@
 <?php header('Content-Type: text/html; charset=utf-8');
-include '../model/conexaobanco.class.php';
+require_once "../model/conexaobanco.class.php";
 
 class DaoUsuario {
-    public static function criarUsuario() {
+    private $conexao = null;
+    public function __construct(){
+        $this->conexao = ConexaoBanco::getInstance();
+    }
 
-        $senhaNaoCriptografada = "testesoftware";
-        $senhaCriptografada = password_hash($senhaNaoCriptografada, PASSWORD_DEFAULT);
+    public static function criarUsuario(Usuario $usuario) {
+        //password_verify($senhaNaoCriptografada, $senhaCriptografada)
+        try {
+            $conexao = ConexaoBanco::getInstance();
+            echo $usuario->getSenha();
+            $sqlInsert = $conexao->prepare("INSERT INTO usuarios (codigoUsuario, nomeUsuario, senhaUsuario, cargo) VALUES (null, :nome, :senha, :cargo)");
+            $sqlInsert->execute(array(
+                'nome' => $usuario->getNome(),
+                'senha' => $usuario->getSenha(),
+                'cargo' => $usuario->getCargo()
+            ));
 
-        if (password_verify($senhaNaoCriptografada, $senhaCriptografada)) {
-            echo "Esse é o hash" . $senhaCriptografada;
-        } else {
-            echo "Não deu!";
+            return true;
+        } catch (\Throwable $th) {
+            throw $th;
         }
-        return true;
+        
     }
 
 
