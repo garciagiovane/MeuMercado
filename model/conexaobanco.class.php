@@ -1,21 +1,23 @@
-<?php
+<?php header('Content-Type: text/html; charset=utf-8');
 class ConexaoBanco extends PDO{
     public static $instance;
   
-    private function __construct($dsn,$usuario,$senha) {
+    public function __construct($dsn,$usuario,$senha) {
         parent::__construct($dsn,$usuario,$senha);
     }
   
     public static function getInstance() {
         try {
             if (!isset(self::$instance)) {
-                self::$instance = new PDO('mysql:host=localhost;dbname=meu_mercado', 'root', '');
+                //self::$instance = new PDO('mysql:host=localhost;dbname=meu_mercado', 'root', '');
+                self::$instance = new PDO('mysql:host=mysql995.umbler.com;dbname=meu_mercado', 'giovanegarcia', 'testesoftware');
                 self::$instance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);                
-            }//fecha if
+            }
             return self::$instance;
         } catch (Exception $exc) {
-            echo "<p>Erro: " . $exc->getTraceAsString() . "</p>";
-            echo "<p>Erro: " . $exc->getMessage() . "</p>";
-        }//fecha try...catch
-    }//fecha getInstance
-}//fecha class
+            $_SESSION["erroConexao"] = $exc->getMessage();            
+            $location = "Location: ../view/resposta.php";
+            header($location);
+        }
+    }
+}
