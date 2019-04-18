@@ -5,7 +5,7 @@ require("../includes/head-tags.php"); ?>
 <body>
     <div class="container">
         <div class="jumbotron">
-            <h1 class="display-4">MeuMercado!</h1>
+            <h1 class="display-4">Meu Mercatto</h1>
             <p class="lead">Consulta de Produtos</p>
             <hr class="my-4">
             <form action="../controller/controller.php?op=3" method="POST">
@@ -66,7 +66,7 @@ require("../includes/head-tags.php"); ?>
                     echo "<td>" . $prod["valorProduto"] . "</td>";
                     echo "<td>" . $prod["qtdEstoque"] . "</td>";
                     echo "<td style='text-align: center;'><a title='Clique para excluir' style='color: red;' href='../controller/controller.php?op=5&codExclusao=" . $prod["codigoProduto"] . "'>X</a></td>";
-                    echo "<td style='text-align: center;'><a title='Clique para excluir' style='color: red;' href='../controller/controller.php?op=8&codAlteracao=" . $prod["codigoProduto"] . "'>X</a></td>";
+                    echo "<td style='text-align: center;'><a title='Clique para alterar' style='color: red;' href='../controller/controller.php?op=8&codAlteracao=" . $prod["codigoProduto"] . "'>X</a></td>";
                     echo "</tr>";
                 }
 

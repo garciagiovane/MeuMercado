@@ -1,16 +1,5 @@
 <?php
-//include "../DAO/produtosDAO.class.php";
 class Validation{
-    
-    /*public function verificarCodigoBanco($codigoProduto){
-        $compararCodigo = DaoProduto::compararCodigoProduto($codigoProduto);
-        if (count($compararCodigo) > 0) {
-            return true;
-        }else {
-            return false;
-        }
-    }*/
-    
     public function validarCodigoProduto($codigoProduto){
         $contadorErros = 0;
         
@@ -56,5 +45,11 @@ class Validation{
 
     public function validarSenha($senha, $confirmacaoSenha){
         
+        if ($senha == null || $confirmacaoSenha == null) {
+            $erros[] = "Senha não pode ficar vazia";
+        }
+        if ($senha != $confirmacaoSenha) {
+            $erros[] = "Senha não confere";
+        }
     }
 }

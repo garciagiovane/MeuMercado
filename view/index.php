@@ -2,7 +2,7 @@
 <body>
   <div class="container">
     <div class="jumbotron">
-      <h1 class="display-4">MeuMercado!</h1>
+      <h1 class="display-4">Meu Mercatto</h1>
       <p class="lead">Escolha a opção desejada.</p>
       <hr class="my-4">
       

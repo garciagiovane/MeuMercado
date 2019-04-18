@@ -13,12 +13,6 @@ if (isset($_GET["op"])) {
             if (!$validation->validarString($_POST["nomeUsuario"])) {
                 $erros[] = "Nome inválido!";
             } 
-            if ($_POST["senhaUsuario"] == null || $_POST["confirmarSenhaUsuario"] == null) {
-                $erros[] = "Senha não pode ficar vazia";
-            }
-            if ($_POST["senhaUsuario"] != $_POST["confirmarSenhaUsuario"]) {
-                $erros[] = "Senha não confere";
-            }
             if ($_POST["listaNivelAcesso"] != 1 || $_POST["listaNivelAcesso"] != 2) {
                 $erros[] = "Selecione um nível de acesso!";
             }
@@ -27,6 +21,7 @@ if (isset($_GET["op"])) {
                 header("Location: ../view/cadastro-usuario.php");
             } else {
                 $daoUsuario->criarUsuario();
+
             }
             break;
         
