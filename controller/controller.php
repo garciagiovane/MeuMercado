@@ -1,36 +1,3 @@
-<<<<<<< HEAD
-<?php
-include "../utilities/validation.class.php";
-
-$validation = new Validation();
-
-$idProduto = $_POST['codigoProduto'];
-$nomeProduto = $_POST['nomeProduto'];
-$tipoProduto = $_POST['tipoProduto'];
-$valorProduto = $_POST['valorProduto'];
-$quantidade = $_POST['quantidade'];
-    /*
-        echo "IdProduto: $idProduto";
-        echo "<br>Nome: $nomeProduto";
-        echo "<br>Tipo: $tipoProduto";
-        echo "<br>Valor: $valorProduto";
-        echo "<br>Quantidade: $quantidade";
-    */
-
-    $idProduto = $validation->validarCodigoProduto($_POST['codigoProduto']);
-        
-/*
-require '../DAO/daousuario.class.php';
-$usuarios = DaoUsuario::buscarTodos();
-foreach ($usuarios as $user){
-    echo "<tr>";
-    echo "<td scope='row'>" . $user['codigoUsuario'] . "</td>";
-    echo "<td>" . $user['nomeUsuario'] . "</td>";
-    echo "<td>" . $user['cargo'] . "</td>";
-    echo "</tr>";
-}
-*/
-=======
 <?php header('Content-Type: text/html; charset=utf-8');
 
 include_once '../utilities/validation.class.php';
@@ -196,4 +163,3 @@ if (isset($_GET["op"])) {
     $location = "Location: ../view/resposta.php";
     header($location);
 }
->>>>>>> 9623e01d7980104ed8dfb243de0a4b3e45b89a14
