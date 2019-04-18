@@ -55,6 +55,12 @@ class Validation{
     }
 
     public function validarSenha($senha, $confirmacaoSenha){
-        
+        if ($senha == null || $confirmacaoSenha == null) {
+            return false;
+        } else if ($senha != $confirmacaoSenha) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }

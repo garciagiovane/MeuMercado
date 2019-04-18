@@ -1,32 +1,8 @@
-<<<<<<< HEAD
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Cadastro de Produtos</title>
-</head>
-<body>
-    <div class="container">
-        <form action="../controller/controller.php" method="post">
-
-            <input type="number" name="codigoProduto" id="codigoProduto" placeholder="Digite aqui o código" >
-            <input type="text" name="nomeProduto" id="nomeProduto" placeholder="Digite o nome do produto" >
-            <input type="text" name="tipoProduto" id="tipoProduto" placeholder="Digite o tipo" >
-            <input type="text" name="valorProduto" id="valorProduto" placeholder="Digite o valor" >
-            <input type="number" name="quantidade" id="quantidade" >
-
-            <input type="submit" name="enviarForm" id="enviarForm">
-            
-
-        </form>
-=======
 <?php require("../includes/config.php"); session_start(); header('Content-Type: text/html; charset=utf-8'); require("../includes/head-tags.php"); ?>
 <body>
     <div class="container">
     <div class="jumbotron">
-      <h1 class="display-4">MeuMercado!</h1>
+      <h1 class="display-4">Meu mercatto</h1>
       <p class="lead">Cadastro de Produtos</p>
       <hr class="my-4">
       <form action="../controller/controller.php?op=1" method="post">
@@ -93,7 +69,6 @@
       
     </div>
         
->>>>>>> 9623e01d7980104ed8dfb243de0a4b3e45b89a14
     </div>
 </body>
 </html>

@@ -2,7 +2,7 @@
 <body>
     <div class="container">
         <div class="jumbotron">
-            <h1 class="display-4">MeuMercado!</h1>
+            <h1 class="display-4">Meu mercatto</h1>
             <p class="lead">Cadastro de usuários</p>
             <hr class="my-4">
             <form action="../controller/controllerusuario.php?op=1" method="POST">

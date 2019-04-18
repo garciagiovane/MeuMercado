@@ -5,7 +5,7 @@ require("../includes/head-tags.php"); ?>
 <body>
     <div class="container">
         <div class="jumbotron">
-            <h1 class="display-4">MeuMercado!</h1>
+            <h1 class="display-4">Meu mercatto</h1>
             <p class="lead">Consulta de Produtos</p>
             <hr class="my-4">
             <form action="../controller/controller.php?op=3" method="POST">
@@ -24,8 +24,8 @@ require("../includes/head-tags.php"); ?>
                     </div>
                 </div>
             </form>
+            <button type="button" class="btn btn-primary btn-lg" onclick="location.href='../controller/controller.php?op=2';">Atualizar</button>
             <button type="button" class="btn btn-info btn-lg" id="homePage" onclick="location.href='index.php';">Página Inicial</button>
-            <button type="button" class="btn btn-success btn-lg" onclick="location.href='../controller/controller.php?op=2';">Atualizar</button>
             <hr class="my-4">
             <?php
 

@@ -13,11 +13,8 @@ if (isset($_GET["op"])) {
             if (!$validation->validarString($_POST["nomeUsuario"])) {
                 $erros[] = "Nome inválido!";
             } 
-            if ($_POST["senhaUsuario"] == null || $_POST["confirmarSenhaUsuario"] == null) {
-                $erros[] = "Senha não pode ficar vazia";
-            }
-            if ($_POST["senhaUsuario"] != $_POST["confirmarSenhaUsuario"]) {
-                $erros[] = "Senha não confere";
+            if (!$validation->validarSenha) {
+                $erros[] = "Senha inválida!";
             }
             if ($_POST["listaNivelAcesso"] != 1 || $_POST["listaNivelAcesso"] != 2) {
                 $erros[] = "Selecione um nível de acesso!";

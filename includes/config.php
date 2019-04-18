@@ -22,5 +22,5 @@ switch ($_SERVER["SCRIPT_NAME"]) {
 		break;
 	default:
 		$CURRENT_PAGE = "Index";
-		$PAGE_TITLE = "Meu Mercado";
+		$PAGE_TITLE = "Meu Mercatto";
 }
