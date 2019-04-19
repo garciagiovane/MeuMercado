@@ -21,9 +21,8 @@ class DaoUsuario {
 
             return true;
         } catch (\Throwable $th) {
-            throw $th;
+            throw $th->getMessage();
         }
-        
     }
 
     public static function buscarTodos($parametro) {

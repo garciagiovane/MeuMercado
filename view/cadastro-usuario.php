@@ -2,7 +2,8 @@
 <body>
     <div class="container">
         <div class="jumbotron">
-            <h1 class="display-4">Meu mercatto</h1>
+            <a href='../controller/controllerusuario.php?op=3' style='position: relative; float: right;' class='btn btn-danger btn-md'>Encerrar sessão</a>
+            <h1 class="display-4"><?php echo $h1; ?></h1>
             <p class="lead">Cadastro de usuários</p>
             <hr class="my-4">
             <form action="../controller/controllerusuario.php?op=1" method="POST">
@@ -30,7 +31,6 @@
                         <select class="custom-select my-1 mr-sm-2" id="listaNivelAcesso" name="listaNivelAcesso">
                             <option selected>Escolha uma opção</option>
                             <option value="1">Administrador</option>
-                            <option value="2">Usuário</option>
                         </select>
                     </div>
                 </div>
@@ -50,6 +50,7 @@
                 } else if(isset($_SESSION["usuarioCadastrado"])) {
                     echo "<hr class='my4'><div class='alert alert-primary' role='alert'>";
                         echo $_SESSION["usuarioCadastrado"];
+                        echo "<small class='form-text text-muted'>Anote o código, em caso de perda entre em contato com o HelpDesk</small>";
                     echo "</div>";
                     unset($_SESSION["usuarioCadastrado"]);
                 }

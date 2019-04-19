@@ -1,11 +1,14 @@
-<?php require("../includes/config.php");
-session_start();
+<?php session_start();
+include "../includes/config.php";
 header('Content-Type: text/html; charset=utf-8');
-require("../includes/head-tags.php"); ?>
+include "../includes/head-tags.php"; ?>
 <body>
     <div class="container">
         <div class="jumbotron">
-            <h1 class="display-4">Meu mercatto</h1>
+            <?php if (isset($_SESSION["usuarioLogado"])) {
+                echo "<a href='../controller/controllerusuario.php?op=3' style='position: relative; float: right;' class='btn btn-danger btn-md'>Encerrar sessão</a>";
+            } ?>
+            <h1 class="display-4"><?php echo $h1; ?></h1>
             <p class="lead">Consulta de Produtos</p>
             <hr class="my-4">
             <form action="../controller/controller.php?op=3" method="POST">
@@ -52,8 +55,12 @@ require("../includes/head-tags.php"); ?>
                 echo "<th scope='col'>Tipo produto</th>";
                 echo "<th scope='col'>Valor Produto</th>";
                 echo "<th scope='col'>Quantidade</th>";
-                echo "<th scope='col'>Excluir</th>";
-                echo "<th scope='col'>Alterar</th>";
+                
+                if (isset($_SESSION["usuarioLogado"])) {
+                    echo "<th scope='col'>Excluir</th>";
+                    echo "<th scope='col'>Alterar</th>";
+                }
+                
                 echo "</tr>";
                 echo "</thead>";
                 echo "<tbody>";
@@ -65,8 +72,12 @@ require("../includes/head-tags.php"); ?>
                     echo "<td>" . $prod["tipoProduto"] . "</td>";
                     echo "<td>" . $prod["valorProduto"] . "</td>";
                     echo "<td>" . $prod["qtdEstoque"] . "</td>";
-                    echo "<td style='text-align: center;'><a title='Clique para excluir' style='color: red;' href='../controller/controller.php?op=5&codExclusao=" . $prod["codigoProduto"] . "'>X</a></td>";
-                    echo "<td style='text-align: center;'><a title='Clique para excluir' style='color: red;' href='../controller/controller.php?op=8&codAlteracao=" . $prod["codigoProduto"] . "'>X</a></td>";
+                    
+                    if (isset($_SESSION["usuarioLogado"])) {
+                        echo "<td style='text-align: center;'><a title='Clique para excluir' style='color: red;' href='../controller/controller.php?op=5&codExclusao=" . $prod["codigoProduto"] . "'>X</a></td>";
+                        echo "<td style='text-align: center;'><a title='Clique para excluir' style='color: red;' href='../controller/controller.php?op=8&codAlteracao=" . $prod["codigoProduto"] . "'>X</a></td>";
+                    }
+                    
                     echo "</tr>";
                 }
 

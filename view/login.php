@@ -1,13 +1,12 @@
-<?php include "../includes/config.php";
-include "../includes/head-tags.php"; session_start();?>
+<?php session_start(); include "../includes/config.php"; include "../includes/head-tags.php"; ?>
 
 <body>
   <div class="container">
     <div class="jumbotron">
-      <h1 class="display-4">Meu mercatto</h1>
+      <h1 class="display-4"><?php echo $h1; ?></h1>
       <p class="lead">Faça login para continuar</p>
       <hr class="my-4">
-      <form action="../controller/controllerusuario.php?op=2" method="POSt">
+      <form action="../controller/controllerusuario.php?op=2&return_url=<?php if(isset($_GET["return_url"])){echo $_GET["return_url"];}?>" method="POST">
         <div class="form-group row">
           <label for="codigoUsuario" class="col-sm-2 col-form-label">Código</label>
           <div class="col-sm-10">
@@ -33,6 +32,11 @@ include "../includes/head-tags.php"; session_start();?>
         }
         echo "</div>";
         unset($_SESSION["erroCadastroUsuario"]);
+      } else if (isset($_SESSION["usuarioNaoEncontrado"])){
+        echo "<hr class='my4'><div class='alert alert-warning' role='alert'>";
+          echo $_SESSION["usuarioNaoEncontrado"];
+        echo "</div>";
+        unset($_SESSION["usuarioNaoEncontrado"]);
       }
       ?>
     </div>
