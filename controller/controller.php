@@ -109,22 +109,25 @@ if (isset($_GET["op"])) {
                     }
                 break;
             case 6:
-            $produtosNoBanco = $daoProduto->buscarProdutos();
-            if (count($produtosNoBanco) > 0) {
-                $_SESSION["produtosNoBanco"] = $produtosNoBanco;
-                $location = "Location: ../view/excluir-produtos.php";
-                header($location);
-            } else {
-                $_SESSION["erroBuscarProdutosControle"] = "Sem podutos cadastrados";
-                $location = "Location: ../view/consulta-produtos.php";
-                header($location);
-            }
+                $produtosNoBanco = $daoProduto->buscarProdutos();
+                if (count($produtosNoBanco) > 0) {
+                    $_SESSION["produtosNoBanco"] = $produtosNoBanco;
+                    $location = "Location: ../view/excluir-produtos.php";
+                    header($location);
+                } else {
+                    $_SESSION["erroBuscarProdutosControle"] = "Sem podutos cadastrados";
+                    $location = "Location: ../view/consulta-produtos.php";
+                    header($location);
+                }
                 break;
-        default:
-            $_SESSION["erroOpControle"] = "Opção inválida";
-            $location = "Location: ../view/resposta.php";
-            header($location);
-            break;
+            case 7:
+                
+                break;
+            default:
+                $_SESSION["erroOpControle"] = "Opção inválida";
+                $location = "Location: ../view/resposta.php";
+                header($location);
+                break;
     }
 } else {
     $_SESSION["erroOpControle"] = "Opção inválida";

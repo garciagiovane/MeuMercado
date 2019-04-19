@@ -102,4 +102,19 @@ class DaoProduto{
             header($location);
         }
     }
+
+    public static function alterarValorProduto($valorProduto, $codigoProduto){
+        try {
+            $conexao = ConexaoBanco::getInstance();
+            
+            $sql = $conexao->prepare("UPDATE produtos SET valorProduto = '$valorProduto' WHERE codigoProduto = '$codigoProduto'");
+            $sql->execute();
+            
+            return true;
+        } catch (\Throwable $erro) {
+            $_SESSION["erroAlterarValorProduto"] = $erro->getMessage();
+            $location = "Location: ../view/resposta.php";
+            header($location);
+        }
+    }
 }

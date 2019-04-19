@@ -50,6 +50,10 @@
             echo "</div>";
             unset($_SESSION["erroBuscaPorNomeControle"]);
 
+        } else if(isset($_SESSION["erroAlterarValorProduto"])){
+            echo "<div class='alert alert-danger' role='alert'>
+                    <p>Erro ao alterar valor\n" . $_SESSION["erroAlterarValorProduto"] . "</p>
+                </div>";
         } else {
             echo "<div class='alert alert-danger' role='alert'>
                     <p>Acesso negado, retorne a <a href='index.php'>página inicial</a></p>  
