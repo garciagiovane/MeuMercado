@@ -1,23 +1,9 @@
 <?php
-//include "../DAO/produtosDAO.class.php";
 class Validation{
-    
-    /*public function verificarCodigoBanco($codigoProduto){
-        $compararCodigo = DaoProduto::compararCodigoProduto($codigoProduto);
-        if (count($compararCodigo) > 0) {
-            return true;
-        }else {
-            return false;
-        }
-    }*/
-    
     public function validarCodigoProduto($codigoProduto){
-        $contadorErros = 0;
-        
-        if(is_int($codigoProduto)) {
+        if(is_int($codigoProduto) && $codigoProduto > 0) {
             return true;
         } elseif(is_string($codigoProduto) && $codigoProduto > 0) {
-            
             return ctype_digit($codigoProduto);
         } else {
             return false;
@@ -30,7 +16,6 @@ class Validation{
     }
 
     public function validarQuantidade($quantidade, $tipo){
-        $contadorErros = 0;
         if($tipo == "carne"){
             if(is_numeric($quantidade)){
                 return true;
@@ -55,6 +40,25 @@ class Validation{
     }
 
     public function validarSenha($senha, $confirmacaoSenha){
-        
+        if ($senha == null || $confirmacaoSenha == null) {
+            return false;
+        } else if ($senha != $confirmacaoSenha) {
+            return false;
+        } else if (strlen($senha) < 8 ){
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public function validarSenhaLogin($senha){
+        if ($senha == null) {
+            return false;
+        } 
+        return true;
+    }
+
+    public function compararSenhas($senhaUsuario, $senhaBanco){
+        return password_verify($senhaUsuario, $senhaBanco);
     }
 }

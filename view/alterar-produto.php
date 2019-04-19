@@ -1,8 +1,13 @@
-<?php require("../includes/config.php"); session_start(); header('Content-Type: text/html; charset=utf-8'); require("../includes/head-tags.php");?>
+<?php session_start();
+include "../includes/config.php";
+header('Content-Type: text/html; charset=utf-8');
+include "../includes/head-tags.php"; ?>
+
 <body>
     <div class="container">
+        <a href='../controller/controllerusuario.php?op=3' style='position: relative; float: right;' class='btn btn-danger btn-md'>Encerrar sessão</a>
         <div class="jumbotron">
-            <h1 class="display-4">MeuMercado!</h1>
+            <h1 class="display-4"><?php echo $h1; ?></h1>
             <p class="lead">Alteração de Produto</p>
             <hr class="my-4">
 
@@ -28,7 +33,7 @@
             }
             ?>
             <form action="../controller/controller.php?op=7" method="post">
-            
+
                 <div class="form-group row">
                     <label for="codigoProduto" class="col-sm-2 col-form-label">Código do produto</label>
                     <div class="col-sm-10">
