@@ -1,19 +1,17 @@
 <?php
-include_once "../DAO/produtosDAO.class.php";
+//include "../DAO/produtosDAO.class.php";
 class Validation{
     
-    public function verificarCodigoBanco($codigoProduto){
+    /*public function verificarCodigoBanco($codigoProduto){
         $compararCodigo = DaoProduto::compararCodigoProduto($codigoProduto);
         if (count($compararCodigo) > 0) {
             return true;
         }else {
             return false;
         }
-    }
+    }*/
     
     public function validarCodigoProduto($codigoProduto){
-        $contadorErros = 0;
-        
         if(is_int($codigoProduto)) {
             return true;
         } elseif(is_string($codigoProduto) && $codigoProduto > 0) {
@@ -25,7 +23,7 @@ class Validation{
     }
 
     public function validarString($nomeProduto){
-        $regex = '/^[a-záàâãéèêíïóôõöúçñ ]+$/';
+        $regex = '/^[A-Za-záàâãéèêíïóôõöúçñ ]+$/';
         return preg_match($regex, $nomeProduto);
     }
 
@@ -52,5 +50,22 @@ class Validation{
         } else {
             return true;
         }
+    }
+
+    public function validarSenha($senha, $confirmacaoSenha){
+        if ($senha == null || $confirmacaoSenha == null) {
+            return false;
+        } else if ($senha != $confirmacaoSenha) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public function validarSenhaLogin($senha){
+        if ($senha == null) {
+            return false;
+        }
+        return true;
     }
 }

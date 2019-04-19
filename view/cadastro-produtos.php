@@ -1,25 +1,19 @@
-<?php include("../includes/config.php"); session_start();?>
-<head>
-    <?php include("../includes/head-tags.php"); ?>
-    <script>
-        
-    </script>
-</head>
+<?php require("../includes/config.php"); session_start(); header('Content-Type: text/html; charset=utf-8'); require("../includes/head-tags.php"); ?>
 <body>
     <div class="container">
     <div class="jumbotron">
-      <h1 class="display-4">MeuMercado!</h1>
+      <h1 class="display-4">Meu mercatto</h1>
       <p class="lead">Cadastro de Produtos</p>
       <hr class="my-4">
       <form action="../controller/controller.php?op=1" method="post">
-
+<!--
             <div class="form-group row">                
                 <label for="codigoProduto" class="col-sm-2 col-form-label">Código do produto</label>
                 <div class="col-sm-10">
                     <input type="number" class="form-control" name="codigoProduto" id="codigoProduto" placeholder="Digite aqui o código" autocomplete="off">
                 </div>                
             </div>
-
+-->
             <div class="form-group row">
                 <label for="nomeProduto" class="col-sm-2 col-form-label">Nome do produto</label>
                 <div class="col-sm-10">
@@ -55,7 +49,7 @@
         <?php 
         if(isset($_SESSION["erroCadastro"])){
             $respostaCadastro = unserialize($_SESSION["erroCadastro"]);
-            echo "<div class='alert alert-warning' role='alert'>";
+            echo "<hr class='my4'><div class='alert alert-warning' role='alert'>";
 
             foreach($respostaCadastro as $res){
                 echo "<p>" . $res . "</p>";
@@ -65,8 +59,8 @@
             unset($_SESSION["erroCadastro"]);
         } else if(isset($_SESSION['respostaCadastroOk'])){
 
-            echo "<div class='alert alert-primary' role='alert'>";
-                echo "<p>Produto cadastrado com sucesso!</p>";
+            echo "<hr class='my4'><div class='alert alert-primary' role='alert'>";
+                echo $_SESSION["respostaCadastroOk"];
             echo "</div>";
             unset($_SESSION["respostaCadastroOk"]);
 
