@@ -2,7 +2,8 @@
 if ($_SERVER["SCRIPT_NAME"] != "/meu-mercado/view/index.php" && $_SERVER["SCRIPT_NAME"] != "/meu-mercado/view/consulta-produtos.php" && $_SERVER["SCRIPT_NAME"] != "/meu-mercado/view/login.php" && $_SERVER["SCRIPT_NAME"] != "/meu-mercado/view/resposta.php") {
 	if (!isset($_SESSION["usuarioLogado"])) { 
 		$return_url = $_SERVER["SCRIPT_NAME"];
-		header("Location: login.php?return_url=$return_url");
+echo $_SERVER["SCRIPT_NAME"];
+		//header("Location: login.php?return_url=$return_url");
 	}
 }
 $h1 = "Meu mercatto";
