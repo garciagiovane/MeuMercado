@@ -1,7 +1,7 @@
 <?php
 class Validation{
     public function validarCodigoProduto($codigoProduto){
-        if(is_int($codigoProduto)) {
+        if(is_int($codigoProduto) && $codigoProduto > 0) {
             return true;
         } elseif(is_string($codigoProduto) && $codigoProduto > 0) {
             return ctype_digit($codigoProduto);

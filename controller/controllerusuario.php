@@ -33,9 +33,9 @@ if (isset($_GET["op"])) {
 
                 if ($daoUsuario->criarUsuario($usuario)) {
                     $nomeParaBusca = $usuario->getNome();
-                    $parametro = "nomeUsuario = '$nomeParaBusca'";
+                    $parametroBusca = "nomeUsuario = '$nomeParaBusca'";
                     
-                    $usuarioEncontrado = $daoUsuario->buscarTodos($parametro);
+                    $usuarioEncontrado = $daoUsuario->buscarTodos($parametroBusca);
                     $codigoGerado;
                     foreach($usuarioEncontrado as $user){
                         $codigoGerado = $user["codigoUsuario"];
@@ -59,7 +59,7 @@ if (isset($_GET["op"])) {
             } else {
                 $parametro = "codigoUsuario = " . $_POST["codigoUsuario"];
                 $usuarioEncontrado = $daoUsuario->buscarTodos($parametro);
-                var_dump($usuarioEncontrado);
+                
                 if (count($usuarioEncontrado) > 0) {
                     $usuarioLogado = new Usuario;
                     $senha;

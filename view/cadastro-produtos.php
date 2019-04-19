@@ -14,28 +14,28 @@ include "../includes/head-tags.php"; ?>
                 <div class="form-group row">
                     <label for="nomeProduto" class="col-sm-2 col-form-label">Nome do produto</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="nomeProduto" id="nomeProduto" placeholder="Digite o nome do produto" autocomplete="off">
+                        <input type="text" class="form-control" name="nomeProduto" id="nomeProduto" placeholder="Digite o nome do produto" autocomplete="off" required>
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label for="tipoProduto" class="col-sm-2 col-form-label">Tipo do produto</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="tipoProduto" id="tipoProduto" placeholder="Digite o tipo" autocomplete="off">
+                        <input type="text" class="form-control" name="tipoProduto" id="tipoProduto" placeholder="Digite o tipo" autocomplete="off" required>
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label for="valorProduto" class="col-sm-2 col-form-label">Valor do produto</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="valorProduto" id="valorProduto" placeholder="Digite o valor" autocomplete="off">
+                        <input type="text" class="form-control" name="valorProduto" id="valorProduto" placeholder="Digite o valor" autocomplete="off" required>
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label for="quantidade" class="col-sm-2 col-form-label">Quantidade</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="quantidade" id="quantidade" autocomplete="off" placeholder="Quantidade">
+                        <input type="text" class="form-control" name="quantidade" id="quantidade" autocomplete="off" placeholder="Quantidade" required>
                     </div>
                 </div>
 
