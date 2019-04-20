@@ -28,6 +28,14 @@ include("../includes/head-tags.php"); ?>
               <a class='list-group-item list-group-item-light' href='login.php'>Fazer login</a>
             </li>";
           }
+          if (isset($_SESSION["usuarioLogado"])) {
+            $codigo = $_SESSION["usuarioLogado"][3];
+            if ($codigo == 1000) {
+              echo "<li class='nav-item'>
+                      <a class='list-group-item list-group-item-light' href='../controller/controllerusuario.php?op=4'>Editar Usuários</a>
+                    </li>";
+            }
+          }
           ?>
         </ul>
       </div>

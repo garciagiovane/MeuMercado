@@ -45,8 +45,8 @@ include "../includes/head-tags.php"; ?>
             }
             if (isset($_SESSION["produtosNoBanco"])) {
                 $produtos = $_SESSION["produtosNoBanco"];
-
-                echo "<table class='table table-hover table-striped'>";
+                echo "<div class='table-responsive'>";
+                echo "<table class='table table-hover table-striped' id='dtHorizontalExample' cellspacing='0' width='100%' >";
                 echo "<thead>";
                 echo "<tr class='table-active'>";
 
@@ -82,6 +82,7 @@ include "../includes/head-tags.php"; ?>
                 }
 
                 echo "</tbody>";
+                echo "</table>";
                 echo "</table>";
             } else if (isset($_SESSION["erroBuscarProdutosControle"])) {
 

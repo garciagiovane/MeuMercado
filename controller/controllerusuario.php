@@ -1,12 +1,14 @@
-<?php session_start();
+<?php
 header('Content-Type: text/html; charset=utf-8');
 include "../DAO/daousuario.class.php";
 include "../utilities/validation.class.php";
-include_once "../model/usuario.class.php";
+include "../model/usuario.class.php";
 
+session_start();
 $validation = new Validation();
 $daoUsuario = new DaoUsuario;
 $usuario = new Usuario;
+
 if (isset($_GET["op"])) {
     $op = $_GET["op"];
     $erros = array();
@@ -34,10 +36,10 @@ if (isset($_GET["op"])) {
                 if ($daoUsuario->criarUsuario($usuario)) {
                     $nomeParaBusca = $usuario->getNome();
                     $parametroBusca = "nomeUsuario = '$nomeParaBusca'";
-                    
+
                     $usuarioEncontrado = $daoUsuario->buscarTodos($parametroBusca);
                     $codigoGerado;
-                    foreach($usuarioEncontrado as $user){
+                    foreach ($usuarioEncontrado as $user) {
                         $codigoGerado = $user["codigoUsuario"];
                     }
 
@@ -59,20 +61,27 @@ if (isset($_GET["op"])) {
             } else {
                 $parametro = "codigoUsuario = " . $_POST["codigoUsuario"];
                 $usuarioEncontrado = $daoUsuario->buscarTodos($parametro);
-                
-                if (count($usuarioEncontrado) > 0) {
-                    $usuarioLogado = new Usuario;
-                    $senha;
 
-                    foreach ($usuarioEncontrado as $userLogado) {
-                        $usuarioLogado->setNome($userLogado["nomeUsuario"]);
-                        $usuarioLogado->setCodigo($userLogado["codigoUsuario"]);
-                        $usuarioLogado->setCargo($userLogado["cargo"]);
-                        $senha = $userLogado["senhaUsuario"];
+                if (count($usuarioEncontrado) > 0) {
+                    //$usuarioLogado = new Usuario;
+                    //$usuarioLogado->setSenha($usuarioEncontrado["senhaUsuario"]);
+                    $nome; $senha; $cargo; $codigo;
+                    foreach ($usuarioEncontrado as $user) {
+                        $nome = $user["nomeUsuario"];
+                        $senha = $user["senhaUsuario"];
+                        $cargo = $user["cargo"];
+                        $codigo = $user["codigoUsuario"];
                     }
 
-                    if ($validation->compararSenhas($_POST["senhaLogin"], $senha)) {
-                        $_SESSION["usuarioLogado"] = $usuarioLogado;
+
+                    //$usuarioLogado = $usuarioEncontrado;
+                    //var_dump($usuarioLogado);
+
+                    if ($validation->compararSenhas($_POST["senhaLogin"],  $senha )) {
+                        $_SESSION["usuarioLogado"] = array(
+                            $nome, $senha, $cargo, $codigo
+                        );
+
                         if (isset($_GET["return_url"])) {
                             $return_url = $_GET["return_url"];
                             header("Location: $return_url");
@@ -80,9 +89,8 @@ if (isset($_GET["op"])) {
                             header("Location: ../view/");
                         }
                     } else {
-                        $_SESSION["usuarioNaoEncontrado"] = "Usuário não encontrado na senha $senha";
-                        echo $senha;
-                        header("Location: ../view/login.php");    
+                        $_SESSION["usuarioNaoEncontrado"] = "Usuário não encontrado!" + $usuarioLogado->getSenha();
+                        header("Location: ../view/login.php");
                     }
                 } else {
                     $_SESSION["usuarioNaoEncontrado"] = "Usuário não encontrado";
@@ -93,6 +101,54 @@ if (isset($_GET["op"])) {
         case 3:
             unset($_SESSION["usuarioLogado"]);
             header("Location: ../view/");
+            break;
+        case 4:
+            $todosUsuarios = $daoUsuario->listarTodos();
+            $_SESSION["usuariosDoBanco"] = $todosUsuarios;
+            header("Location: ../view/edicaoadm.php");
+            break;
+        case 5:
+            if (!$validation->validarCodigoProduto($_GET["codigoUsuario"])) {
+                $erros[] = "Código usuário inválido!";
+            } else {
+                $codigoParaAlteracao = $_GET["codigoUsuario"];
+                $querySql = "codigoUsuario = '$codigoParaAlteracao'";
+                $usuarioEncontrado = $daoUsuario->buscarTodos($querySql);
+
+                if ($usuarioEncontrado != null) {
+                    $_SESSION["usuarioEncontrado"] = $usuarioEncontrado;
+                    header("Location: ../view/alterarusuario.php");
+                } else {
+                    $_SESSION["usuarioNaoEncontrado"] = "Usuário não encontrado";
+                    header("Location: ../view/alterarusuario.php");
+                }
+            }
+            break;
+        case 6:
+            if (!$validation->validarString($_POST["nomeUsuario"])) {
+                $erros[] = "Nome inválido!";
+            }
+            if (!$validation->validarSenha($_POST["senhaUsuario"], $_POST["confirmarSenhaUsuario"])) {
+                $erros[] = "Senha inválida!";
+            }
+            if ($_POST["listaNivelAcesso"] != 1 && $_POST["listaNivelAcesso"] != 2) {
+                $erros[] = "Selecione um nível de acesso!";
+            }
+            if (count($erros) > 0) {
+                $_SESSION["erroAlteracaoUsuario"] = serialize($erros);
+                header("Location: ../view/alterarusuario.php");
+            } else {
+                $alteracaoUsuario = new Usuario;
+
+                $alteracaoUsuario->setCodigo($_POST["codigoUsuario"]);
+                $alteracaoUsuario->setNome($_POST["nomeUsuario"]);
+                $alteracaoUsuario->setSenha(password_hash($_POST["senhaUsuario"], PASSWORD_DEFAULT));
+
+                if ($daoUsuario->alterarUsuario($alteracaoUsuario)) {
+                    $_SESSION["usuarioAlterado"] = "Usuário alterado com sucesso!";
+                    header("Location: ../view/alterarusuario.php");
+                }
+            }
             break;
         default:
 
