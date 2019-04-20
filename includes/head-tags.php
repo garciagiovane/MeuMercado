@@ -1,6 +1,7 @@
 <?php header("Content-Type: text/html; charset=utf-8"); ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <title><?php print $PAGE_TITLE; ?></title>
     <meta charset="utf-8">
@@ -10,4 +11,29 @@
     <meta http-equiv=”content-type” content=”text/html; charset=UTF-8″ />
     <link rel="stylesheet" href="../style/bootstrap.min.css">
     <script src="../style/bootstrap.min.js"></script>
+    <style>
+        @media (max-width: 991.98px) { 
+            .container{
+                width: 100%;
+                padding: 3px;
+            }
+
+            .jumbotron {
+                width: 100%;
+                padding: 0;
+            }
+        }
+
+        @media (max-width: 767.98px) { 
+            .container{
+                width: 100%;
+                padding: 3px;
+            }
+
+            .jumbotron {
+                width: 100%;
+                padding: 0;
+            }
+        }
+    </style>
 </head>
