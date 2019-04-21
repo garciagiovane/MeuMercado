@@ -12,6 +12,10 @@
     <link rel="stylesheet" href="../style/bootstrap.min.css">
     <script src="../style/bootstrap.min.js"></script>
     <style>
+        #iconeExclusao, #iconeAlteracao, #iconeCompra {
+            width: 30px;
+            height: 30px;
+        }
         @media (max-width: 991.98px) { 
             .container{
                 width: 100%;

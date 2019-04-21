@@ -8,7 +8,7 @@ include "../includes/head-tags.php"; ?>
         <a href='../controller/controllerusuario.php?op=3' style='position: relative; float: right;' class='btn btn-danger btn-md'>Encerrar sessão</a>
         <div class="jumbotron">
             <h1 class="display-4"><?php echo $h1; ?></h1>
-            <p class="lead">Alteração de Produto</p>
+            <p class="lead"><?php echo $lead; ?></p>
             <hr class="my-4">
 
             <?php
@@ -67,8 +67,8 @@ include "../includes/head-tags.php"; ?>
                         <input type="number" class="form-control" name="quantidade" id="quantidade" autocomplete="off" value="<?php echo $quantidade ?>">
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary btn-lg">Alterar</button>
-                <button type="button" class="btn btn-info btn-lg" id="homePage" onclick="location.href='index.php';">Página Inicial</button>
+                <button type="submit" class="btn btn-primary ">Alterar</button>
+                <button type="button" class="btn btn-info " id="homePage" onclick="location.href='index.php';">Página Inicial</button>
             </form>
         </div>
     </div>

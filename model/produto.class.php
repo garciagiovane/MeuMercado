@@ -5,6 +5,7 @@ class Produto{
     private $tipo;
     private $valor;
     private $quantidade;
+    private $estoqueLoja;
 
     public function __construct(){
         
@@ -58,11 +59,20 @@ class Produto{
         $this->quantidade = $quantidade;
     }
 
+    public function getEstoqueLoja(){
+        return $this->estoqueLoja;
+    }
+
+    public function setEstoqueLoja($estoqueLoja){
+        $this->estoqueLoja = $estoqueLoja;
+    }
+
     public function __toString(){
         return nl2br("Codigo: $this->codigo
         Nome: $this->nome
         Tipo: $this->tipo
         Valor: $this->valor
-        Quantidade: $this->quantidade");
+        Quantidade: $this->quantidade
+        Estoque Loja: $this->getEstoqueLoja");
     }
 }
