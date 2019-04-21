@@ -63,8 +63,7 @@ if (isset($_GET["op"])) {
                 $usuarioEncontrado = $daoUsuario->buscarTodos($parametro);
 
                 if (count($usuarioEncontrado) > 0) {
-                    //$usuarioLogado = new Usuario;
-                    //$usuarioLogado->setSenha($usuarioEncontrado["senhaUsuario"]);
+
                     $nome; $senha; $cargo; $codigo;
                     foreach ($usuarioEncontrado as $user) {
                         $nome = $user["nomeUsuario"];
@@ -73,23 +72,19 @@ if (isset($_GET["op"])) {
                         $codigo = $user["codigoUsuario"];
                     }
 
-
-                    //$usuarioLogado = $usuarioEncontrado;
-                    //var_dump($usuarioLogado);
-
                     if ($validation->compararSenhas($_POST["senhaLogin"],  $senha )) {
                         $_SESSION["usuarioLogado"] = array(
                             $nome, $senha, $cargo, $codigo
                         );
 
-                        if (isset($_GET["return_url"])) {
+                        if (isset($_GET["return_url"]) && $_GET["return_url"] != null) {
                             $return_url = $_GET["return_url"];
                             header("Location: $return_url");
                         } else {
                             header("Location: ../view/");
                         }
                     } else {
-                        $_SESSION["usuarioNaoEncontrado"] = "Usuário não encontrado!" + $usuarioLogado->getSenha();
+                        $_SESSION["usuarioNaoEncontrado"] = "Usuário não encontrado!";
                         header("Location: ../view/login.php");
                     }
                 } else {
@@ -149,6 +144,9 @@ if (isset($_GET["op"])) {
                     header("Location: ../view/alterarusuario.php");
                 }
             }
+            break;
+        case 7:
+            
             break;
         default:
 

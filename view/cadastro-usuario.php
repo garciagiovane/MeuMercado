@@ -1,12 +1,12 @@
 <?php session_start(); include "../includes/config.php"; header('Content-Type: text/html; charset=utf-8'); include "../includes/head-tags.php";?>
 <body>
     <div class="container">
+    <a href='../controller/controllerusuario.php?op=3' style='position: relative; float: right;' class='btn btn-danger btn-md'>Encerrar sessão</a>
         <div class="jumbotron">
-            <a href='../controller/controllerusuario.php?op=3' style='position: relative; float: right;' class='btn btn-danger btn-md'>Encerrar sessão</a>
             <h1 class="display-4"><?php echo $h1; ?></h1>
-            <p class="lead">Cadastro de usuários</p>
+            <p class="lead"><?php echo $lead; ?></p>
             <hr class="my-4">
-            <form action="../controller/controllerusuario.php?op=1" method="POST">
+            <form action="../controller/controllerusuario.php?op=1" method="POST" >
                 <div class="form-group row">
                     <label for="nomeUsuario" class="col-sm-2 col-form-label">Nome</label>
                     <div class="col-sm-10">
@@ -35,8 +35,8 @@
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-primary btn-lg">Cadastrar</button>
-                <button type="button" class="btn btn-info btn-lg" id="homePage" onclick="location.href='index.php';">Página Inicial</button>
+                <button type="submit" class="btn btn-primary ">Cadastrar</button>
+                <button type="button" class="btn btn-info " id="homePage" onclick="location.href='index.php';">Página Inicial</button>
             </form>
             <?php 
                 if (isset($_SESSION["erroCadastroUsuario"])) {

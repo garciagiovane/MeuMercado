@@ -1,4 +1,5 @@
 <?php session_start();
+include "../includes/config.php";
 header('Content-Type: text/html; charset=utf-8');
 include "../includes/head-tags.php";
 if (isset($_SESSION["usuarioEncontrado"])) {
@@ -17,10 +18,10 @@ if (isset($_SESSION["usuarioEncontrado"])) {
 
 <body>
     <div class="container">
-        <div class="jumbotron">
-            <a href='../controller/controllerusuario.php?op=3' style='position: relative; float: right;' class='btn btn-danger btn-md'>Encerrar sessão</a>
+    <a href='../controller/controllerusuario.php?op=3' style='position: relative; float: right;' class='btn btn-danger btn-md'>Encerrar sessão</a>
+        <div class="jumbotron">            
             <h1 class="display-4">Meu mercatto</h1>
-            <p class="lead">Alteração de usuários</p>
+            <p class="lead"><?php echo $lead; ?></p>
             <hr class="my-4">
             <form action="../controller/controllerusuario.php?op=6" method="POST">
                 <div class="form-group row">
@@ -57,8 +58,8 @@ if (isset($_SESSION["usuarioEncontrado"])) {
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-primary btn-lg">Alterar</button>
-                <button type="button" class="btn btn-info btn-lg" id="homePage" onclick="location.href='index.php';">Página Inicial</button>
+                <button type="submit" class="btn btn-primary ">Alterar</button>
+                <button type="button" class="btn btn-info " id="homePage" onclick="location.href='index.php';">Página Inicial</button>
             </form>
             <?php
             if (isset($_SESSION["erroAlteracaoUsuario"])) {

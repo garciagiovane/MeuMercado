@@ -1,18 +1,10 @@
 <?php session_start();
 include "../includes/config.php";
-header('Content-Type: text/html; charset=utf-8');
-include "../includes/head-tags.php"; ?>
-
-<body>
-    <div class="container">
-        <?php if (isset($_SESSION["usuarioLogado"])) {
-            echo "<a href='../controller/controllerusuario.php?op=3' style='position: relative; float: right;' class='btn btn-danger btn-md'>Encerrar sessão</a>";
-        } ?>
-        <div class="jumbotron">
-            <h1 class="display-4"><?php echo $h1; ?></h1>
-            <p class="lead"><?php echo $lead; ?></p>
-            <hr class="my-4">
-            <form action="../controller/controller.php?op=3&origem=consulta" method="POST">
+include "../includes/head-tags.php";
+include "../includes/top.php";
+?>
+<!-- Code below here -->
+<form action="../controller/controller.php?op=3&origem=venda" method="POST">
                 <div class="input-group mb-3">
                     <input type="text" autocomplete="off" class="form-control" id="pesquisarPorTipo1" name="pesquisarPorTipo1" placeholder="Pesquisar produto por nome" aria-label="Recipient's username" aria-describedby="button-addon2">
                     <div class="input-group-append">
@@ -20,7 +12,7 @@ include "../includes/head-tags.php"; ?>
                     </div>
                 </div>
             </form>
-            <form action="../controller/controller.php?op=4&origem=consulta" method="POST">
+            <form action="../controller/controller.php?op=4&origem=venda" method="POST">
                 <div class="input-group mb-3">
                     <input type="text" autocomplete="off" class="form-control" id="pesquisarPorTipo" name="pesquisarPorTipo" placeholder="Pesquisar produto por tipo" aria-label="Recipient's username" aria-describedby="button-addon2">
                     <div class="input-group-append">
@@ -28,7 +20,7 @@ include "../includes/head-tags.php"; ?>
                     </div>
                 </div>
             </form>
-            <button type="button" class="btn btn-primary " onclick="location.href='../controller/controller.php?op=2&origem=consulta';">Atualizar</button>
+            <button type="button" class="btn btn-primary " onclick="location.href='../controller/controller.php?op=2&origem=venda';">Atualizar</button>
             <button type="button" class="btn btn-info " id="homePage" onclick="location.href='index.php';">Página Inicial</button>
             <hr class="my-4">
             <?php
@@ -51,18 +43,10 @@ include "../includes/head-tags.php"; ?>
                 echo "<thead>";
                 echo "<tr class='table-active'>";
 
-                echo "<th scope='col'>Código</th>";
                 echo "<th scope='col'>Nome</th>";
                 echo "<th scope='col'>Tipo</th>";
-                echo "<th scope='col'>Valor</th>";
-                echo "<th scope='col'>Estoque<br>entrada</th>";
-                echo "<th scope='col'>Vendas</th>";
-                echo "<th scope='col'>Estoque<br>loja</th>";
-
-                if (isset($_SESSION["usuarioLogado"])) {
-                    echo "<th scope='col'>Excluir</th>";
-                    echo "<th scope='col'>Alterar</th>";
-                }
+                echo "<th scope='col'>Valor</th>";                
+                echo "<th scope='col'>Comprar</th>";
 
                 echo "</tr>";
                 echo "</thead>";
@@ -70,20 +54,11 @@ include "../includes/head-tags.php"; ?>
 
                 foreach ($produtos as $prod) {
                     echo "<tr>";
-                    echo "<td scope='row'>" . $prod["codigoProduto"] . "</td>";
                     echo "<td>" . $prod["nomeProduto"] . "</td>";
                     echo "<td>" . $prod["tipoProduto"] . "</td>";
                     echo "<td>R$ " . number_format($prod["valorProduto"], 2, ",", ".") . "</td>";
-                    echo "<td>" . $prod["qtdEstoque"] . "</td>";
-                    echo "<td>";  
-                        if($prod["vendas"] == null){ echo 0; } else {echo $prod["vendas"];}
-                    echo "</td>";
-                    echo "<td>" . $prod["estoque_loja"] . "</td>";
-
-                    if (isset($_SESSION["usuarioLogado"])) {
-                        echo "<td style='text-align: center;'><a title='Clique para excluir' href='../controller/controller.php?op=5&codExclusao=" . $prod["codigoProduto"] . "'><img src='../includes/assets/lixo.png' id='iconeExclusao' alt='link para exclusão de produtos'></a></td>";
-                        echo "<td style='text-align: center;'><a title='Clique para editar' href='../controller/controller.php?op=8&codAlteracao=" . $prod["codigoProduto"] . "'><img src='../includes/assets/lapis.png' id='iconeAlteracao' alt='link para alteração de produtos'></a></td>";
-                    }
+                    /* COLOCAR NO HREF ../controller/controller.php?op=10&codProdutoVendido=*/
+                    echo "<td ><a title='Clique para comprar' href='../controller/controller.php?op=10&codProdutoVendido=" . $prod["codigoProduto"] . "'><img src='../includes/assets/carrinho.png' id='iconeCompra' alt='link para exclusão de produtos'></a></td>";
 
                     echo "</tr>";
                 }
@@ -96,26 +71,34 @@ include "../includes/head-tags.php"; ?>
                 echo "<div class='alert alert-danger' role='alert'>";
                 echo "<p>Erro ao buscarProdutos: Controle" . $_SESSION["erroBuscarProdutosControle"] . "</p>";
                 echo "</div>";
+                unset($_SESSION["erroBuscarProdutosControle"]);
             } else if (isset($_SESSION["erroBuscaPorNomeControle"])) {
                 echo "<div class='alert alert-danger' role='alert'>";
                 echo "<p>Erro ao buscarProdutos: Controle" . $_SESSION["erroBuscaPorNomeControle"] . "</p>";
                 echo "</div>";
+                unset($_SESSION["erroBuscaPorNomeControle"]);
             } else if (isset($_SESSION["erroBuscarProdutosCase8"])) {
                 echo "<div class='alert alert-danger' role='alert'>";
                 echo "<p>Erro ao buscarProdutos: Controle" . $_SESSION["erroBuscarProdutosCase8"] . "</p>";
                 echo "</div>";
-            } else if (isset($_SESSION["erroAlterarValorProduto"])) {
+                unset($_SESSION["erroBuscarProdutosCase8"]);
+            } else if (isset($_SESSION["erroControle"])) {
                 echo "<div class='alert alert-danger' role='alert'>";
-                echo $_SESSION["erroAlterarValorProduto"];
+                echo $_SESSION["erroControle"];
                 echo "</div>";
+                unset($_SESSION["erroControle"]);
+            } else if(isset($_SESSION["sucessoControle"])){
+                echo "<div class='alert alert-info' role='alert'>";
+                echo $_SESSION["sucessoControle"];
+                echo "</div>";
+                unset($_SESSION["sucessoControle"]);
+                
             } else {
                 echo "<div class='alert alert-danger' role='alert'>";
                 echo "<p>Erro ao buscarProdutos: consulta-produtos</p>";
                 echo "</div>";
             }
             ?>
-
-
-        </div>
-    </div>
-</body>
+<!-- Code above here -->
+<?php
+include "../includes/bottom.php";

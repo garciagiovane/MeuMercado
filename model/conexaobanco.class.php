@@ -14,10 +14,9 @@ class ConexaoBanco extends PDO{
                 self::$instance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);                
             }
             return self::$instance;
-        } catch (Exception $exc) {
+        } catch (PDOException $exc) {
             $_SESSION["erroConexao"] = $exc->getMessage();            
-            $location = "Location: ../view/resposta.php";
-            header($location);
+            header("Location: ../view/resposta.php");
         }
     }
 }

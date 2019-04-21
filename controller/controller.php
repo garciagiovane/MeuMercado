@@ -47,6 +47,7 @@ if (isset($_GET["op"])) {
                 $produto->setTipo($tipoProduto);
                 $produto->setValor($valorProduto);
                 $produto->setQuantidade($quantidade);
+                $produto->setEstoqueLoja($quantidade);
 
                 $daoProduto->cadastrarProduto($produto);
             } else {
@@ -57,9 +58,18 @@ if (isset($_GET["op"])) {
             break;
         case 2:
             $produtosNoBanco = $daoProduto->buscarProdutos();
+            $location;
             if (count($produtosNoBanco) > 0) {
                 $_SESSION["produtosNoBanco"] = $produtosNoBanco;
-                $location = "Location: ../view/consulta-produtos.php";
+                if (isset($_GET["origem"])) {
+                    if ($_GET["origem"] == "venda") {
+                        $location = "Location: ../view/venda.php";
+                    } else if ($_GET["origem"] == "consulta") {
+                        $location = "Location: ../view/consulta-produtos.php";
+                    }
+                } else {
+                    $location = "Location: ../view/venda.php";
+                }
                 header($location);
             } else {
                 $_SESSION["erroBuscarProdutosControle"] = "Sem podutos cadastrados";
@@ -77,7 +87,15 @@ if (isset($_GET["op"])) {
                 $querySql = "nomeProduto = '$pesq'";
                 $produtosNoBanco = $daoProduto->buscarProdutosPor($querySql);
                 $_SESSION["produtosNoBanco"] = $produtosNoBanco;
-                $location = "Location: ../view/consulta-produtos.php";
+                if (isset($_GET["origem"])) {
+                    if ($_GET["origem"] == "venda") {
+                        $location = "Location: ../view/venda.php";
+                    } else if ($_GET["origem"] == "consulta") {
+                        $location = "Location: ../view/consulta-produtos.php";
+                    }
+                } else {
+                    $location = "Location: ../view/venda.php";
+                }
                 header($location);
             }
             break;
@@ -91,7 +109,15 @@ if (isset($_GET["op"])) {
                 $querySql = "tipoProduto = '$pesq'";
                 $produtosNoBanco = $daoProduto->buscarProdutosPor($querySql);
                 $_SESSION["produtosNoBanco"] = $produtosNoBanco;
-                $location = "Location: ../view/consulta-produtos.php";
+                if (isset($_GET["origem"])) {
+                    if ($_GET["origem"] == "venda") {
+                        $location = "Location: ../view/venda.php";
+                    } else if ($_GET["origem"] == "consulta") {
+                        $location = "Location: ../view/consulta-produtos.php";
+                    }
+                } else {
+                    $location = "Location: ../view/venda.php";
+                }
                 header($location);
             }
             break;
@@ -150,6 +176,15 @@ if (isset($_GET["op"])) {
                 $erros[] = "Nome inválido!";
             } else if ($_POST["senhaUsuario"] != $_POST["confirmarSenhaUsuario"]) {
                 $erros[] = "Senha não confere";
+            }
+            break;
+        case 10:
+            if (!$validation->validarCodigoProduto($_GET["codProdutoVendido"])) {
+                $_SESSION["erroControle"] = "Código inválido - 10!";
+                header("Location: ../view/venda.php");
+            } else if ($daoProduto->vender($_GET["codProdutoVendido"])) {
+                $_SESSION["sucessoControle"] = "Venda efetuada!";
+                header("Location: controller.php?op=2?origem=venda");
             }
             break;
         default:

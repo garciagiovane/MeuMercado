@@ -5,10 +5,10 @@ include "../includes/head-tags.php"; ?>
 
 <body>
     <div class="container">
+    <a href='../controller/controllerusuario.php?op=3' style='position: relative; float: right;' class='btn btn-danger btn-md'>Encerrar sessão</a>
         <div class="jumbotron">
-            <a href='../controller/controllerusuario.php?op=3' style='position: relative; float: right;' class='btn btn-danger btn-md'>Encerrar sessão</a>
             <h1 class="display-4"><?php echo $h1; ?></h1>
-            <p class="lead">Cadastro de Produtos</p>
+            <p class="lead"><?php echo $lead; ?></p>
             <hr class="my-4">
             <form action="../controller/controller.php?op=1" method="post">
                 <div class="form-group row">
@@ -39,8 +39,8 @@ include "../includes/head-tags.php"; ?>
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-primary btn-lg">Cadastrar</button>
-                <button type="button" class="btn btn-info btn-lg" id="homePage" onclick="location.href='index.php';">Página Inicial</button>
+                <button type="submit" class="btn btn-primary ">Cadastrar</button>
+                <button type="button" class="btn btn-info " id="homePage" onclick="location.href='index.php';">Página Inicial</button>
             </form>
             <?php
             if (isset($_SESSION["erroCadastro"])) {
