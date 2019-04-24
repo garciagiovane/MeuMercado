@@ -29,8 +29,8 @@ switch ($_SERVER["SCRIPT_NAME"]) {
 
 	default:
 		break;
-}*/
-
+}
+*/
 switch ($_SERVER["SCRIPT_NAME"]) {
 	case "/view/alterar-produto.php":
 	case "/view/alterarusuario.php":
@@ -64,8 +64,8 @@ switch ($_SERVER["SCRIPT_NAME"]) {
 
 $h1 = "Meu mercatto";
 $lead;
-/*
-switch ($_SERVER["SCRIPT_NAME"]) {
+
+/*switch ($_SERVER["SCRIPT_NAME"]) {
 	case "/meu-mercado/view/cadastro-produtos.php":
 		$lead = "Cadastro de Produtos";
 		$PAGE_TITLE = "Cadastro de Produtos";
@@ -98,6 +98,11 @@ switch ($_SERVER["SCRIPT_NAME"]) {
 		break;
 	case "/meu-mercado/view/venda.php":
 		$lead = "Escolha seu produto";
+		$PAGE_TITLE = "Venda";
+		$h1;
+		break;
+	case "/meu-mercado/view/busca-vendas.php":
+		$lead = "Colsultar vendas";
 		$PAGE_TITLE = "Venda";
 		$h1;
 		break;

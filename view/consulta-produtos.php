@@ -51,7 +51,7 @@ include "../includes/head-tags.php"; ?>
                 echo "<thead>";
                 echo "<tr class='table-active'>";
 
-                echo "<th scope='col'>Código</th>";
+                echo "<th class='th-sm' scope='col'>Código</th>";
                 echo "<th scope='col'>Nome</th>";
                 echo "<th scope='col'>Tipo</th>";
                 echo "<th scope='col'>Valor</th>";
