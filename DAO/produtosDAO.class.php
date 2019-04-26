@@ -102,7 +102,7 @@ class DaoProduto{
         try {
             $conexao = ConexaoBanco::getInstance();
             
-            $sql = $conexao->prepare("UPDATE produtos SET valorProduto = '$novoValor', qtdEstoque = '$novaQuantidade' WHERE codigoProduto = '$codigoProduto'");
+            $sql = $conexao->prepare("UPDATE produtos SET valorProduto = '$novoValor', qtdEstoque = '$novaQuantidade', estoque_loja='$novaQuantidade' - vendas WHERE codigoProduto = '$codigoProduto'");
             $sql->execute();
             
             return true;

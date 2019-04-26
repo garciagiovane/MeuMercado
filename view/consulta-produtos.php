@@ -60,8 +60,7 @@ include "../includes/head-tags.php"; ?>
                 echo "<th scope='col'>Estoque<br>loja</th>";
 
                 if (isset($_SESSION["usuarioLogado"])) {
-                    echo "<th scope='col'>Excluir</th>";
-                    echo "<th scope='col'>Alterar</th>";
+                    echo "<th scope='col'>Editar produto</th>";
                 }
 
                 echo "</tr>";
@@ -81,7 +80,7 @@ include "../includes/head-tags.php"; ?>
                     echo "<td>" . $prod["estoque_loja"] . "</td>";
 
                     if (isset($_SESSION["usuarioLogado"])) {
-                        echo "<td style='text-align: center;'><a title='Clique para excluir' href='../controller/controller.php?op=5&codExclusao=" . $prod["codigoProduto"] . "'><img src='../includes/assets/lixo.png' id='iconeExclusao' alt='link para exclusão de produtos'></a></td>";
+                        //echo "<td style='text-align: center;'><a title='Clique para excluir venda' href='../controller/controller.php?op=5&codExclusao=" . $prod["codigoProduto"] . "'><img src='../includes/assets/lixo.png' id='iconeExclusao' alt='link para exclusão de produtos'></a></td>";
                         echo "<td style='text-align: center;'><a title='Clique para editar' href='../controller/controller.php?op=8&codAlteracao=" . $prod["codigoProduto"] . "'><img src='../includes/assets/lapis.png' id='iconeAlteracao' alt='link para alteração de produtos'></a></td>";
                     }
 

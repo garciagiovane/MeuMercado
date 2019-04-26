@@ -57,7 +57,6 @@ include "../includes/top.php";
                     echo "<td>" . $prod["nomeProduto"] . "</td>";
                     echo "<td>" . $prod["tipoProduto"] . "</td>";
                     echo "<td>R$ " . number_format($prod["valorProduto"], 2, ",", ".") . "</td>";
-                    /* COLOCAR NO HREF ../controller/controller.php?op=10&codProdutoVendido=*/
                     echo "<td ><a title='Clique para comprar' href='../controller/controller.php?op=10&codProdutoVendido=" . $prod["codigoProduto"] . "'><img src='../includes/assets/carrinho.png' id='iconeCompra' alt='link para exclusão de produtos'></a></td>";
 
                     echo "</tr>";

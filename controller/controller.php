@@ -13,13 +13,6 @@ if (isset($_GET["op"])) {
     switch ($op) {
         case 1:
             $erros = array();
-
-            /*if (count($daoProduto->compararCodigoProduto($_POST['codigoProduto'])) > 0) {
-                $erros[] = 'Código já está cadastrado';
-            }
-            if (!$validation->validarCodigoProduto($_POST['codigoProduto'])) {
-                $erros[] = 'Código inválido';
-            }*/
             if (!$validation->validarString($_POST['nomeProduto'])) {
                 $erros[] = 'Nome do produto inválido';
             }
@@ -84,7 +77,7 @@ if (isset($_GET["op"])) {
                 header($location);
             } else {
                 $pesq = $_POST["pesquisarPorTipo1"];
-                $querySql = "nomeProduto = '$pesq'";
+                $querySql = "nomeProduto LIKE '%" . $pesq . "%'";
                 $produtosNoBanco = $daoProduto->buscarProdutosPor($querySql);
                 $_SESSION["produtosNoBanco"] = $produtosNoBanco;
                 if (isset($_GET["origem"])) {
@@ -106,7 +99,7 @@ if (isset($_GET["op"])) {
                 header($location);
             } else {
                 $pesq = $_POST["pesquisarPorTipo"];
-                $querySql = "tipoProduto = '$pesq'";
+                $querySql = "tipoProduto LIKE '%" . $pesq . "%'";
                 $produtosNoBanco = $daoProduto->buscarProdutosPor($querySql);
                 $_SESSION["produtosNoBanco"] = $produtosNoBanco;
                 if (isset($_GET["origem"])) {
@@ -152,7 +145,7 @@ if (isset($_GET["op"])) {
                 header($location);
             } else if ($daoProduto->alterarProduto($_POST["codigoProduto"], str_replace(",", ".", $_POST['valorProduto']), $_POST["quantidade"])) {
                 $_SESSION["sucessoAlterarValorProduto"] = "Produto alterado com sucesso!";
-                $location = "Location: controller.php?op=2";
+                $location = "Location: controller.php?op=2&origem=consulta";
                 header($location);
             }
             break;
