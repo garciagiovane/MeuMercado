@@ -93,6 +93,7 @@ if ($_SERVER["SERVER_NAME"] == "localhost") {
 		case "/view/cadastro-produtos.php":
 		case "/view/alterar-produto.php":
 		case "/view/consulta-produtos.php":
+		case "/meu-mercado/view/busca-vendas.php":
 
 			if (!isset($_SESSION["usuarioLogado"])) {
 				$return_url = $_SERVER["SCRIPT_NAME"];
@@ -148,10 +149,21 @@ if ($_SERVER["SERVER_NAME"] == "localhost") {
 			$PAGE_TITLE = "Login";
 			$h1;
 			break;
-		case "/view/venda.php":
+		case "/meu-mercado/view/venda.php":
 			$lead = "Escolha seu produto";
 			$PAGE_TITLE = "Venda";
+			$botaoAnular = "Cancelar";
+			$botaoCancelar = "Comprar";
+			$op = "10";
 			$h1;
+			break;
+		case "/meu-mercado/view/busca-vendas.php":
+			$lead = "Colsultar vendas";
+			$PAGE_TITLE = "Vendas";
+			$h1;
+			$botaoAnular = "Cancelar operação";
+			$botaoCancelar = "Cancelar Venda";
+			$op = "12";
 			break;
 		default:
 			$lead = "Escolha sua opção";
