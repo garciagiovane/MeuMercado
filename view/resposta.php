@@ -1,7 +1,7 @@
 <?php include("../includes/config.php");
 include("../includes/head-tags.php");
 session_start();
-include "../includes/top.php" ?>
+include_once "../includes/top.php" ?>
 <?php
 
 if (isset($_SESSION["erroDaoProduto"])) {
@@ -36,4 +36,5 @@ if (isset($_SESSION["erroDaoProduto"])) {
 echo "<div class='alert alert-danger' role='alert'>
                     <p>Acesso negado, retorne a <a href='index.php' class='btn btn-danger'>página inicial</a></p>  
                 </div>";
+include_once "../includes/bottom.php"
 ?>

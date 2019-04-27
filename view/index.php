@@ -2,13 +2,12 @@
 include("../includes/config.php");
 header('Content-Type: text/html; charset=utf-8');
 include("../includes/head-tags.php");
-include "../includes/top.php";
+include_once "../includes/top.php";
 ?>
-
 <div class="list-group">
   <ul class="nav justify-content-center">
     <li class="nav-item">
-      <a class="list-group-item list-group-item-light" href="../controller/controller.php?op=2&origem=venda">Consultar Produtos</a>
+      <a class="list-group-item list-group-item-light" href="../controller/controller.php?op=2&origem=venda">Comprar</a>
     </li>
     <?php if (isset($_SESSION["usuarioLogado"])) {
       echo "<li class='nav-item'>
@@ -18,8 +17,11 @@ include "../includes/top.php";
               <a class='list-group-item list-group-item-light' href='cadastro-usuario.php'>Cadastrar funcionário</a>
             </li>
             <li class='nav-item'>
-              <a class='list-group-item list-group-item-light' href='../controller/controller.php?op=2&origem=consulta'>Consultar vendas</a>
-            </li>            
+              <a class='list-group-item list-group-item-light' href='../controller/controller.php?op=9'>Consultar Estoque</a>
+            </li>
+            <li class='nav-item'>
+              <a class='list-group-item list-group-item-light' href='../controller/controller.php?op=11'>Consultar Vendas</a>
+            </li>         
             ";
     }
     if (!isset($_SESSION["usuarioLogado"])) {
@@ -38,4 +40,4 @@ include "../includes/top.php";
     ?>
   </ul>
 </div>
-<?php include "../includes/bottom.php"; ?>
+<?php include_once "../includes/bottom.php"; ?>

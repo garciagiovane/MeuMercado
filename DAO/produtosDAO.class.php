@@ -39,8 +39,6 @@ class DaoProduto{
     public static function compararCodigoProduto($codigoProduto){
         try {
             $conexao = ConexaoBanco::getInstance();
-            
-            //$sql = $conexao->prepare("SELECT codigoProduto FROM produtos WHERE codigoProduto = $codigoProduto");
             $sql = $conexao->prepare("SELECT codigoProduto FROM produtos WHERE codigoProduto = '$codigoProduto'");
             $sql->execute();
             $resultado = $sql->fetchAll();
@@ -102,7 +100,7 @@ class DaoProduto{
         try {
             $conexao = ConexaoBanco::getInstance();
             
-            $sql = $conexao->prepare("UPDATE produtos SET valorProduto = '$novoValor', qtdEstoque = '$novaQuantidade' WHERE codigoProduto = '$codigoProduto'");
+            $sql = $conexao->prepare("UPDATE produtos SET valorProduto = '$novoValor', qtdEstoque = '$novaQuantidade', estoque_loja='$novaQuantidade' - vendas WHERE codigoProduto = '$codigoProduto'");
             $sql->execute();
             
             return true;
@@ -112,16 +110,28 @@ class DaoProduto{
         }
     }
 
-    public function vender($codigoProduto){
+    public function vender($codigoProduto, $quantidade){
         try {
             $conexao = ConexaoBanco::getInstance();
             
-            $sql = $conexao->prepare("UPDATE produtos SET vendas = vendas + 1, estoque_loja = estoque_loja - 1 WHERE codigoProduto = '$codigoProduto'");
+            $sql = $conexao->prepare("UPDATE produtos SET vendas = vendas + $quantidade, estoque_loja = estoque_loja - $quantidade WHERE codigoProduto = '$codigoProduto'");
             $sql->execute();
             
             return true;
         } catch (PDOException $erro) {
             $_SESSION["erroDaoProduto"] = $erro->getMessage() . " Vender";
+            header("Location: ../view/resposta.php");
+        }
+    }
+
+    public function excluirVenda($codigoProduto, $quantidadeCancelada){
+        try {
+            $sql = $this->conexao->prepare("UPDATE produtos SET vendas = vendas - $quantidadeCancelada, estoque_loja = estoque_loja + $quantidadeCancelada WHERE codigoProduto = '$codigoProduto'");
+            $sql->execute();
+            
+            return true;
+        } catch (PDOException $erro) {
+            $_SESSION["erroDaoProduto"] = $erro->getMessage() . " Excluir venda";
             header("Location: ../view/resposta.php");
         }
     }
