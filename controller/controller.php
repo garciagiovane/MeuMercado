@@ -172,12 +172,25 @@ if (isset($_GET["op"])) {
             }
             break;
         case 10:
-            if (!$validation->validarCodigoProduto($_GET["codProdutoVendido"])) {
-                $_SESSION["erroControle"] = "Código inválido - 10!";
+        $erros = array();
+            if (!$validation->validarCodigoProduto($_POST["codigoProdutoCompra"])) {
+                $erros[] = "Código inválido - 10!";
+            }
+            if (!$validation->validarQuantidade($_POST["quantidadeCompra"], $_POST["tipoProdutoCompra"])){
+                $erros[] = "Quantidade inválida - 10!";
+            }
+            if(count($erros) > 0){
+                $_SESSION["erroControle"] = serialize($erros);
                 header("Location: ../view/venda.php");
-            } else if ($daoProduto->vender($_GET["codProdutoVendido"])) {
-                $_SESSION["sucessoControle"] = "Venda efetuada!";
-                header("Location: controller.php?op=2?origem=venda");
+            } else {
+                $resposta = $daoProduto->vender($_POST["codigoProdutoCompra"], $_POST["quantidadeCompra"]);
+                if($resposta){
+                    $_SESSION["sucessoControle"] = "Venda efetuada!";
+                    header("Location: controller.php?op=2?origem=venda");
+                }else {
+                    $_SESSION["erroControle"] = "Erro ao vender produto - 10!";
+                    header("Location: ../view/venda.php");
+                }
             }
             break;
         default:
