@@ -165,31 +165,82 @@ if (isset($_GET["op"])) {
             break;
         case 9:
             $erros = array();
-            if (!$validation->validarString($_POST["nomeUsuario"])) {
-                $erros[] = "Nome inválido!";
-            } else if ($_POST["senhaUsuario"] != $_POST["confirmarSenhaUsuario"]) {
-                $erros[] = "Senha não confere";
+            if (!isset($_GET["estoque"])) {
+                $_SESSION["produtosEstoque"] = $daoProduto->buscarProdutos();
             }
+            $estoque = $_GET["estoque"];
+            if ($estoque != "positivo" && $estoque != "negativo" && $estoque != "zerado") {
+                $_SESSION["produtosEstoque"] = $daoProduto->buscarProdutos();
+            } else {
+                $estoque = $_GET["estoque"];
+
+                if ($estoque == "positivo") {
+                    $parametroPesquisa = "estoque_loja > 0";
+                } else if ($estoque == "negativo") {
+                    $parametroPesquisa = "estoque_loja < 0";
+                } else {
+                    $parametroPesquisa = "estoque_loja = 0";
+                }
+                $_SESSION["produtosEstoque"] = $daoProduto->buscarProdutosPor($parametroPesquisa);
+            }
+            header("Location: ../view/consulta-produtos.php");
             break;
         case 10:
-        $erros = array();
+            $erros = array();
             if (!$validation->validarCodigoProduto($_POST["codigoProdutoCompra"])) {
                 $erros[] = "Código inválido - 10!";
             }
-            if (!$validation->validarQuantidade($_POST["quantidadeCompra"], $_POST["tipoProdutoCompra"])){
+            if (!$validation->validarQuantidade($_POST["quantidadeCompra"], $_POST["tipoProdutoCompra"])) {
                 $erros[] = "Quantidade inválida - 10!";
             }
-            if(count($erros) > 0){
+            if (count($erros) > 0) {
                 $_SESSION["erroControle"] = serialize($erros);
                 header("Location: ../view/venda.php");
             } else {
                 $resposta = $daoProduto->vender($_POST["codigoProdutoCompra"], $_POST["quantidadeCompra"]);
-                if($resposta){
+                if ($resposta) {
                     $_SESSION["sucessoControle"] = "Venda efetuada!";
                     header("Location: controller.php?op=2?origem=venda");
-                }else {
+                } else {
                     $_SESSION["erroControle"] = "Erro ao vender produto - 10!";
                     header("Location: ../view/venda.php");
+                }
+            }
+            break;
+        case 11:
+            $erros = array();
+            $querySql = "vendas > 0";
+            $produtosEncontrados = $daoProduto->buscarProdutosPor($querySql);
+            if (count($produtosEncontrados) > 0) {
+                $_SESSION["vendas"] = $produtosEncontrados;
+                header("Location: ../view/busca-vendas.php");
+            } else {
+                $_SESSION["erroControle"] = "Erro ao buscar vendas";
+                header("Location: ../view/busca-vendas.php");
+            }
+            break;
+        case 12:
+            $erros = array();
+            if (!$validation->validarCodigoProduto($_POST["codigoProdutoCompra"])) {
+                $erros[] = "Código inválido - 10!";
+            }
+            if (!$validation->validarQuantidade($_POST["quantidadeCompra"], $_POST["tipoProdutoCompra"])) {
+                $erros[] = "Quantidade inválida - 10!";
+            }
+            if ($_POST["quantidadeCompra"] > $_POST["qtdJaVendida"]){
+                $erros[] = "Venda não pode ficar negativa";
+            }
+            if (count($erros) > 0) {
+                $_SESSION["erroControle"] = serialize($erros);
+                header("Location: ../view/busca-vendas.php");
+            } else {
+                $resposta = $daoProduto->excluirVenda($_POST["codigoProdutoCompra"], $_POST["quantidadeCompra"]);
+                if ($resposta) {
+                    $_SESSION["sucessoControle"] = "Venda excluida com sucesso!";
+                    header("Location: controller.php?op=11");
+                } else {
+                    $_SESSION["erroControle"] = "Erro ao excluir venda - 10!";
+                    header("Location: ../view/busca-vendas.php");
                 }
             }
             break;

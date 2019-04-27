@@ -21,14 +21,16 @@
     <script type="text/javascript" src="../style/jquery.tablesorter.widgets.js"></script>
     <script>
         $(document).ready(function() {
-            $("#dtHorizontalExample tbody tr").on("click","#comprar", function() {
+            $("#dtHorizontalExample tbody tr").on("click","#abrirModal", function() {
                 var linhaAtual = $(this).closest("tr");
                 var codigo = linhaAtual.find("td:eq(0)").text();
                 var nomeProduto = linhaAtual.find("td:eq(1)").text();
                 var tipoProduto = linhaAtual.find("td:eq(2)").text();
+                var qtdVendida = linhaAtual.find("td:eq(5)").text();
                 $("#codigoProdutoCompra").val(codigo);
                 $("#produtoCompra").text("Produto: " + nomeProduto);
                 $("#tipoProdutoCompra").val(tipoProduto);
+                $("#qtdJaVendida").val(qtdVendida);
             });
         })
 
