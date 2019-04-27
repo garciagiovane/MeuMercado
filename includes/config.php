@@ -149,7 +149,7 @@ if ($_SERVER["SERVER_NAME"] == "localhost") {
 			$PAGE_TITLE = "Login";
 			$h1;
 			break;
-		case "/meu-mercado/view/venda.php":
+		case "/view/venda.php":
 			$lead = "Escolha seu produto";
 			$PAGE_TITLE = "Venda";
 			$botaoAnular = "Cancelar";
@@ -157,7 +157,7 @@ if ($_SERVER["SERVER_NAME"] == "localhost") {
 			$op = "10";
 			$h1;
 			break;
-		case "/meu-mercado/view/busca-vendas.php":
+		case "/view/busca-vendas.php":
 			$lead = "Colsultar vendas";
 			$PAGE_TITLE = "Vendas";
 			$h1;
