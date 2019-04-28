@@ -25,16 +25,12 @@ if (isset($_SESSION["erroDaoProduto"])) {
     echo $_SESSION["erroOpControle"];
     echo "</div>";
     unset($_SESSION["erroOpControle"]);
-} else if (isset($_SESSION["erroBuscaPorNomeControle"])) {
-
-    echo "<div class='alert alert-danger' role='alert'>";
-    echo "<p>Erro busca por parâmetro: Controle</p>";
-    echo $_SESSION["erroBuscaPorNomeControle"];
-    echo "</div>";
-    unset($_SESSION["erroBuscaPorNomeControle"]);
-}
-echo "<div class='alert alert-danger' role='alert'>
+} 
+if(!isset($_SESSION["usuarioLogado"])){
+    echo "<div class='alert alert-danger' role='alert'>
                     <p>Acesso negado, retorne a <a href='index.php' class='btn btn-danger'>página inicial</a></p>  
                 </div>";
+}
+
 include_once "../includes/bottom.php"
 ?>
