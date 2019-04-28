@@ -1,6 +1,6 @@
 <?php
 $h1 = "PlenosMarket";
-/*
+
 if ($_SERVER["SERVER_NAME"] == "localhost") {
 	switch ($_SERVER["SCRIPT_NAME"]) {
 		case "/meu-mercado/view/alterar-produto.php":
@@ -86,7 +86,7 @@ if ($_SERVER["SERVER_NAME"] == "localhost") {
 			$PAGE_TITLE = "PlenosMarket";
 			$h1;
 	}
-} else {*/
+} else {
 	switch ($_SERVER["SCRIPT_NAME"]) {
 		case "/view/alterar-produto.php":
 		case "/view/alterarusuario.php":
@@ -170,4 +170,4 @@ if ($_SERVER["SERVER_NAME"] == "localhost") {
 			$PAGE_TITLE = "PlenosMarket";
 			$h1;
 	}
-//}
+}
