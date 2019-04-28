@@ -57,14 +57,14 @@ include "../includes/head-tags.php"; ?>
                 <div class="form-group row">
                     <label for="valorProduto" class="col-sm-2 col-form-label">Valor do produto</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="valorProduto" id="valorProduto" value="<?php echo $valor ?>" autocomplete="off">
+                        <input type="text" class="form-control valorProduto" name="valorProduto" id="valorProduto" value="<?php echo $valor ?>" autocomplete="off">
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label for="quantidade" class="col-sm-2 col-form-label">Quantidade</label>
                     <div class="col-sm-10">
-                        <input type="number" class="form-control" name="quantidade" id="quantidade" autocomplete="off" value="<?php echo $quantidade ?>">
+                        <input type="text" class="form-control" name="quantidade" id="quantidade" autocomplete="off" value="<?php echo $quantidade ?>">
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary ">Alterar</button>

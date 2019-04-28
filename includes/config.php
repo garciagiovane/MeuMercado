@@ -83,7 +83,7 @@ if ($_SERVER["SERVER_NAME"] == "localhost") {
 			break;
 		default:
 			$lead = "Escolha sua opção";
-			$PAGE_TITLE = "Meu Mercatto";
+			$PAGE_TITLE = "PlenosMarket";
 			$h1;
 	}
 } else {
@@ -167,7 +167,7 @@ if ($_SERVER["SERVER_NAME"] == "localhost") {
 			break;
 		default:
 			$lead = "Escolha sua opção";
-			$PAGE_TITLE = "Meu Mercatto";
+			$PAGE_TITLE = "PlenosMarket";
 			$h1;
 	}
 }

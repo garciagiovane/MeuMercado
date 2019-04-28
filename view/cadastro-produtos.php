@@ -28,7 +28,7 @@ include "../includes/head-tags.php"; ?>
                 <div class="form-group row">
                     <label for="valorProduto" class="col-sm-2 col-form-label">Valor do produto</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="valorProduto" id="valorProduto" placeholder="Digite o valor" autocomplete="off" required>
+                        <input type="text" class="form-control valorProduto" name="valorProduto" id="valorProduto" placeholder="Digite o valor" autocomplete="off" required>
                     </div>
                 </div>
 

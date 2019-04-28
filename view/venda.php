@@ -29,7 +29,7 @@ include_once "../includes/modal_quantidade.php";
 <?php
 if (isset($_SESSION["erroBuscaPorNomeControle"])) {
     echo "<div class='alert alert-danger' role='alert'>";
-    echo "<p>Erro ao buscarProdutos: Controle" . $_SESSION["erroBuscaPorNomeControle"] . "</p>";
+    echo "<p>" . $_SESSION["erroBuscaPorNomeControle"] . "</p>";
     echo "</div>";
     unset($_SESSION["erroBuscaPorNomeControle"]);
 } else if (isset($_SESSION["erroBuscarProdutosCase8"])) {

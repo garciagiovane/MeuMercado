@@ -10,6 +10,11 @@ class Validation{
         }       
     }
 
+    public function validarNomeProduto($nomeProduto){
+        $regex = '/^([A-Za-záàâãéèêíïóôõöúçñ]{2})([ A-Za-záàâãéèêíïóôõöúçñ0-9])+$/';
+        return preg_match($regex, $nomeProduto);
+    }
+
     public function validarString($nomeProduto){
         $regex = '/^[A-Za-záàâãéèêíïóôõöúçñ ]+$/';
         return preg_match($regex, $nomeProduto);

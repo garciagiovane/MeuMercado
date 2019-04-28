@@ -12,8 +12,10 @@ if (isset($_GET["op"])) {
 
     switch ($op) {
         case 1:
+            setlocale(LC_MONETARY, "pt_BR");
+            
             $erros = array();
-            if (!$validation->validarString($_POST['nomeProduto'])) {
+            if (!$validation->validarNomeProduto($_POST['nomeProduto'])) {
                 $erros[] = 'Nome do produto inválido';
             }
             if (!$validation->validarString($_POST['tipoProduto'])) {
@@ -33,7 +35,13 @@ if (isset($_GET["op"])) {
                 $nomeProduto = mb_strtolower($_POST['nomeProduto'], "UTF-8");
                 $tipoProduto = mb_strtolower($_POST['tipoProduto'], "UTF-8");
                 $valorProduto = str_replace(",", ".", $_POST['valorProduto']);
+                $val = money_format('%i' ,$valorApenasNumeros);
+
                 $quantidade = $_POST['quantidade'];
+                // echo "Formatter: " . $valorFormatado; 
+                // echo "\nSó números: " . $valorApenasNumeros;
+                // echo "\nnumber_format: " . $valorProduto;
+                // echo "\nmoney_format: " . $val;
 
                 $produto->setCodigo($idProduto);
                 $produto->setNome($nomeProduto);
@@ -71,9 +79,17 @@ if (isset($_GET["op"])) {
             }
             break;
         case 3:
-            if (!$validation->validarString($_POST['pesquisarPorTipo1'])) {
-                $_SESSION["erroBuscaPorNomeControle"] = "Pesquisa Inválida - Nome: " . $_POST['pesquisarPorTipo1'];
-                $location = "Location: ../view/resposta.php";
+            if (!$validation->validarNomeProduto($_POST['pesquisarPorTipo1'])) {
+                $_SESSION["erroBuscaPorNomeControle"] = "Desculpe, não encontramos nenhum produto";
+                if (isset($_GET["origem"])) {
+                    if ($_GET["origem"] == "venda") {
+                        $location = "Location: ../view/venda.php";
+                    } else if ($_GET["origem"] == "consulta") {
+                        $location = "Location: ../view/consulta-produtos.php";
+                    }
+                } else {
+                    $location = "Location: ../view/venda.php";
+                }
                 header($location);
             } else {
                 $pesq = $_POST["pesquisarPorTipo1"];
@@ -94,8 +110,16 @@ if (isset($_GET["op"])) {
             break;
         case 4:
             if (!$validation->validarString($_POST['pesquisarPorTipo'])) {
-                $_SESSION["erroBuscaPorNomeControle"] = "Pesquisa Inválida - Tipo ";
-                $location = "Location: ../view/resposta.php";
+                $_SESSION["erroBuscaPorNomeControle"] = "Desculpe, não encontramos nenhum produto";
+                if (isset($_GET["origem"])) {
+                    if ($_GET["origem"] == "venda") {
+                        $location = "Location: ../view/venda.php";
+                    } else if ($_GET["origem"] == "consulta") {
+                        $location = "Location: ../view/consulta-produtos.php";
+                    }
+                } else {
+                    $location = "Location: ../view/venda.php";
+                }
                 header($location);
             } else {
                 $pesq = $_POST["pesquisarPorTipo"];
@@ -122,7 +146,7 @@ if (isset($_GET["op"])) {
             } else {
                 $daoProduto->excluirProduto($_GET['codExclusao']);
                 $_SESSION["sucessoExcluirNoControle"] = "Produto excluído";
-                $location = "Location: controller.php?op=2";
+                $location = "Location: controller.php?op=9";
                 header($location);
             }
             break;
@@ -145,7 +169,7 @@ if (isset($_GET["op"])) {
                 header($location);
             } else if ($daoProduto->alterarProduto($_POST["codigoProduto"], str_replace(",", ".", $_POST['valorProduto']), $_POST["quantidade"])) {
                 $_SESSION["sucessoAlterarValorProduto"] = "Produto alterado com sucesso!";
-                $location = "Location: controller.php?op=2&origem=consulta";
+                $location = "Location: controller.php?op=9";
                 header($location);
             }
             break;
@@ -173,12 +197,14 @@ if (isset($_GET["op"])) {
                 $_SESSION["produtosEstoque"] = $daoProduto->buscarProdutos();
             } else {
                 $estoque = $_GET["estoque"];
-
+                $parametroPesquisa;
                 if ($estoque == "positivo") {
                     $parametroPesquisa = "estoque_loja > 0";
-                } else if ($estoque == "negativo") {
+                } 
+                if ($estoque == "negativo") {
                     $parametroPesquisa = "estoque_loja < 0";
-                } else {
+                } 
+                if ($estoque == "zerado") {
                     $parametroPesquisa = "estoque_loja = 0";
                 }
                 $_SESSION["produtosEstoque"] = $daoProduto->buscarProdutosPor($parametroPesquisa);
@@ -199,7 +225,7 @@ if (isset($_GET["op"])) {
             } else {
                 $resposta = $daoProduto->vender($_POST["codigoProdutoCompra"], $_POST["quantidadeCompra"]);
                 if ($resposta) {
-                    $_SESSION["sucessoControle"] = "Venda efetuada!";
+                    $_SESSION["sucessoControle"] = "Compra efetuada!";
                     header("Location: controller.php?op=2?origem=venda");
                 } else {
                     $_SESSION["erroControle"] = "Erro ao vender produto - 10!";
@@ -227,7 +253,7 @@ if (isset($_GET["op"])) {
             if (!$validation->validarQuantidade($_POST["quantidadeCompra"], $_POST["tipoProdutoCompra"])) {
                 $erros[] = "Quantidade inválida - 10!";
             }
-            if ($_POST["quantidadeCompra"] > $_POST["qtdJaVendida"]){
+            if ($_POST["quantidadeCompra"] > $_POST["qtdJaVendida"]) {
                 $erros[] = "Venda não pode ficar negativa";
             }
             if (count($erros) > 0) {
