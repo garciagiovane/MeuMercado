@@ -170,4 +170,4 @@ if ($_SERVER["SERVER_NAME"] == "localhost") {
 			$PAGE_TITLE = "PlenosMarket";
 			$h1;
 	}
-}
+//}
