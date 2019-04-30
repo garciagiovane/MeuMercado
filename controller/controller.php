@@ -1,4 +1,7 @@
 <?php header('Content-Type: text/html; charset=utf-8');
+include_once '../utilities/padronizacao.php';
+
+use Padronizacao as padronizar;
 
 include_once '../utilities/validation.class.php';
 include_once '../model/produto.class.php';
@@ -13,7 +16,7 @@ if (isset($_GET["op"])) {
     switch ($op) {
         case 1:
             setlocale(LC_MONETARY, "pt_BR");
-            
+
             $erros = array();
             if (!$validation->validarNomeProduto($_POST['nomeProduto'])) {
                 $erros[] = 'Nome do produto inválido';
@@ -31,19 +34,11 @@ if (isset($_GET["op"])) {
             if (count($erros) == 0) {
                 $produto = new Produto();
 
-                $idProduto = $_POST['codigoProduto'];
                 $nomeProduto = mb_strtolower($_POST['nomeProduto'], "UTF-8");
                 $tipoProduto = mb_strtolower($_POST['tipoProduto'], "UTF-8");
-                $valorProduto = str_replace(",", ".", $_POST['valorProduto']);
-                $val = money_format('%i' ,$valorApenasNumeros);
-
+                $valorProduto = padronizar\padronizarValorParaOBanco($_POST["valorProduto"]);
                 $quantidade = $_POST['quantidade'];
-                // echo "Formatter: " . $valorFormatado; 
-                // echo "\nSó números: " . $valorApenasNumeros;
-                // echo "\nnumber_format: " . $valorProduto;
-                // echo "\nmoney_format: " . $val;
 
-                $produto->setCodigo($idProduto);
                 $produto->setNome($nomeProduto);
                 $produto->setTipo($tipoProduto);
                 $produto->setValor($valorProduto);
@@ -200,10 +195,10 @@ if (isset($_GET["op"])) {
                 $parametroPesquisa;
                 if ($estoque == "positivo") {
                     $parametroPesquisa = "estoque_loja > 0";
-                } 
+                }
                 if ($estoque == "negativo") {
                     $parametroPesquisa = "estoque_loja < 0";
-                } 
+                }
                 if ($estoque == "zerado") {
                     $parametroPesquisa = "estoque_loja = 0";
                 }

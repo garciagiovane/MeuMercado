@@ -73,7 +73,7 @@ include "../includes/head-tags.php"; ?>
                     echo "<td scope='row'>" . $prod["codigoProduto"] . "</td>";
                     echo "<td>" . $prod["nomeProduto"] . "</td>";
                     echo "<td>" . $prod["tipoProduto"] . "</td>";
-                    echo "<td>R$ " . number_format($prod["valorProduto"], 2, ",", ".") . "</td>";
+                    echo "<td>R$ " . number_format($prod["valorProduto"], 2, ",", ".")   . "</td>";
                     echo "<td>" . $prod["qtdEstoque"] . "</td>";
                     echo "<td>";
                     if ($prod["vendas"] == null) {

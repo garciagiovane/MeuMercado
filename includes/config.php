@@ -93,7 +93,7 @@ if ($_SERVER["SERVER_NAME"] == "localhost") {
 		case "/view/cadastro-produtos.php":
 		case "/view/alterar-produto.php":
 		case "/view/consulta-produtos.php":
-		case "/meu-mercado/view/busca-vendas.php":
+		case "/view/busca-vendas.php":
 
 			if (!isset($_SESSION["usuarioLogado"])) {
 				$return_url = $_SERVER["SCRIPT_NAME"];
