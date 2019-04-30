@@ -34,7 +34,7 @@ if (isset($_GET["op"])) {
                 $idProduto = $_POST['codigoProduto'];
                 $nomeProduto = mb_strtolower($_POST['nomeProduto'], "UTF-8");
                 $tipoProduto = mb_strtolower($_POST['tipoProduto'], "UTF-8");
-                $valorProduto = str_replace(",", ".", $_POST['valorProduto']);
+                $valorProduto = number_format($_POST['valorProduto'], 2, ',', '.');// str_replace(",", ".", $_POST['valorProduto']);
                 $val = money_format('%i' ,$valorApenasNumeros);
 
                 $quantidade = $_POST['quantidade'];
