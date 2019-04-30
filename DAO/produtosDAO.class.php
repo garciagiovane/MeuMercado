@@ -18,40 +18,36 @@ class DaoProduto{
     public static function cadastrarProduto(Produto $produto){
         try {
             $conexao = ConexaoBanco::getInstance();
-            $sqlCadastro = $conexao->prepare("INSERT INTO produtos(codigoProduto, nomeProduto, tipoProduto, valorProduto, qtdEstoque) VALUES (null, :nomeProduto, :tipoProduto, :valorProduto, :qtdEstoque)");
+            $sqlCadastro = $conexao->prepare("INSERT INTO produtos(codigoProduto, nomeProduto, tipoProduto, valorProduto, qtdEstoque, vendas, estoque_loja) VALUES (null, :nomeProduto, :tipoProduto, :valorProduto, :qtdEstoque, 0, :estoqueLoja)");
             $sqlCadastro->execute(array(
                 'nomeProduto' => $produto->getNome(),
                 'tipoProduto' => $produto->getTipo(),
                 'valorProduto' => $produto->getValor(),
-                'qtdEstoque' => $produto->getQuantidade()
+                'qtdEstoque' => $produto->getQuantidade(),
+                'estoqueLoja' => $produto->getEstoqueLoja()
             ));
 
             $_SESSION["respostaCadastroOk"] = "Produto cadastrado!";
             $enviarParaResposta = "Location: ../view/cadastro-produtos.php";
             header($enviarParaResposta);
-        } catch (\Throwable $erro) {
-            
-            $_SESSION["erroCadastroDAO"] = $erro->getMessage();
-            $enviarParaResposta = "Location: ../view/resposta.php";
-            header($enviarParaResposta);
+        } catch (PDOException $erro) {
+            $_SESSION["erroDaoProduto"] = $erro->getMessage() . " Cadastrar produto";
+            header("Location: ../view/resposta.php");
         }
     }
 
     public static function compararCodigoProduto($codigoProduto){
         try {
             $conexao = ConexaoBanco::getInstance();
-            
-            //$sql = $conexao->prepare("SELECT codigoProduto FROM produtos WHERE codigoProduto = $codigoProduto");
             $sql = $conexao->prepare("SELECT codigoProduto FROM produtos WHERE codigoProduto = '$codigoProduto'");
             $sql->execute();
             $resultado = $sql->fetchAll();
             
             return $resultado;
             
-        } catch (\Throwable $erro) {
-            $_SESSION["erroComparaCodigo"] = $erro->getMessage();
-            $enviarParaResposta = "Location: ../view/resposta.php";
-            header($enviarParaResposta);
+        } catch (PDOException $erro) {
+            $_SESSION["erroDaoProduto"] = $erro->getMessage() . " Comparar codigo";
+            header("Location: ../view/resposta.php");
         }
         
     }
@@ -65,10 +61,9 @@ class DaoProduto{
             $resultado = $sql->fetchAll();
             
             return $resultado;
-        } catch (\Throwable $erro) {
-            $_SESSION["erroBuscarProduto"] = $erro->getMessage();
-            $location = "Location: ../view/resposta.php";
-            header($location);
+        } catch (PDOException $erro) {
+            $_SESSION["erroDaoProduto"] = $erro->getMessage() . " Buscar produto";
+            header("Location: ../view/resposta.php");
         }        
     }
 
@@ -81,10 +76,9 @@ class DaoProduto{
             $resultado = $sql->fetchAll();
             
             return $resultado;
-        } catch (\Throwable $erro) {
-            $_SESSION["erroBuscarProduto"] = $erro->getMessage();
-            $location = "Location: ../view/resposta.php";
-            header($location);
+        } catch (PDOException $erro) {
+            $_SESSION["erroDaoProduto"] = $erro->getMessage() . " Buscar produto parametro";
+            header("Location: ../view/resposta.php");
         }        
     }
 
@@ -96,10 +90,9 @@ class DaoProduto{
             $sql->execute();
             
             return true;
-        } catch (\Throwable $erro) {
-            $_SESSION["erroExcluirProduto"] = $erro->getMessage();
-            $location = "Location: ../view/resposta.php";
-            header($location);
+        } catch (PDOException $erro) {
+            $_SESSION["erroDaoProduto"] = $erro->getMessage() . " Excluir produto";
+            header("Location: ../view/resposta.php");
         }
     }
 
@@ -107,14 +100,39 @@ class DaoProduto{
         try {
             $conexao = ConexaoBanco::getInstance();
             
-            $sql = $conexao->prepare("UPDATE produtos SET valorProduto = '$novoValor', qtdEstoque = '$novaQuantidade' WHERE codigoProduto = '$codigoProduto'");
+            $sql = $conexao->prepare("UPDATE produtos SET valorProduto = '$novoValor', qtdEstoque = '$novaQuantidade', estoque_loja='$novaQuantidade' - vendas WHERE codigoProduto = '$codigoProduto'");
             $sql->execute();
             
             return true;
-        } catch (\Throwable $erro) {
-            $_SESSION["erroAlterarValorProduto"] = $erro->getMessage();
-            $location = "Location: ../view/alterarProduto.php";
-            header($location);
+        } catch (PDOException $erro) {
+            $_SESSION["erroDaoProduto"] = $erro->getMessage() . " Alterar produto";
+            header("Location: ../view/resposta.php");
+        }
+    }
+
+    public function vender($codigoProduto, $quantidade){
+        try {
+            $conexao = ConexaoBanco::getInstance();
+            
+            $sql = $conexao->prepare("UPDATE produtos SET vendas = vendas + $quantidade, estoque_loja = estoque_loja - $quantidade WHERE codigoProduto = '$codigoProduto'");
+            $sql->execute();
+            
+            return true;
+        } catch (PDOException $erro) {
+            $_SESSION["erroDaoProduto"] = $erro->getMessage() . " Vender";
+            header("Location: ../view/resposta.php");
+        }
+    }
+
+    public function excluirVenda($codigoProduto, $quantidadeCancelada){
+        try {
+            $sql = $this->conexao->prepare("UPDATE produtos SET vendas = vendas - $quantidadeCancelada, estoque_loja = estoque_loja + $quantidadeCancelada WHERE codigoProduto = '$codigoProduto'");
+            $sql->execute();
+            
+            return true;
+        } catch (PDOException $erro) {
+            $_SESSION["erroDaoProduto"] = $erro->getMessage() . " Excluir venda";
+            header("Location: ../view/resposta.php");
         }
     }
 }

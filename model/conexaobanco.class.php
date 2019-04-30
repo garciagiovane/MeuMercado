@@ -9,15 +9,17 @@ class ConexaoBanco extends PDO{
     public static function getInstance() {
         try {
             if (!isset(self::$instance)) {
-                //self::$instance = new PDO('mysql:host=mysql995.umbler.com;dbname=meu_mercado', 'giovanegarcia', 'testesoftware');
-                self::$instance = new PDO('mysql:host=mysql995.umbler.com:41890;dbname=meu_mercado', 'giovanegarcia', 'testesoftware');
+                if($_SERVER["SERVER_NAME"] == "localhost"){
+                    self::$instance = new PDO('mysql:host=mysql995.umbler.com:41890;dbname=meu_mercado1', 'giovane_garcia', 'testesoftware');
+                } else {
+                    self::$instance = new PDO('mysql:host=mysql995.umbler.com;dbname=meu_mercado1', 'giovane_garcia', 'testesoftware');
+                }
                 self::$instance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);                
             }
             return self::$instance;
-        } catch (Exception $exc) {
+        } catch (PDOException $exc) {
             $_SESSION["erroConexao"] = $exc->getMessage();            
-            $location = "Location: ../view/resposta.php";
-            header($location);
+            header("Location: ../view/resposta.php");
         }
     }
 }

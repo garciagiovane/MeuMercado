@@ -1,9 +1,14 @@
-<?php require("../includes/config.php"); session_start(); header('Content-Type: text/html; charset=utf-8'); require("../includes/head-tags.php");?>
+<?php session_start();
+include "../includes/config.php";
+header('Content-Type: text/html; charset=utf-8');
+include "../includes/head-tags.php"; ?>
+
 <body>
     <div class="container">
+        <a href='../controller/controllerusuario.php?op=3' style='position: relative; float: right;' class='btn btn-danger btn-md'>Encerrar sessão</a>
         <div class="jumbotron">
-            <h1 class="display-4">MeuMercado!</h1>
-            <p class="lead">Alteração de Produto</p>
+            <h1 class="display-4"><?php echo $h1; ?></h1>
+            <p class="lead"><?php echo $lead; ?></p>
             <hr class="my-4">
 
             <?php
@@ -28,7 +33,7 @@
             }
             ?>
             <form action="../controller/controller.php?op=7" method="post">
-            
+
                 <div class="form-group row">
                     <label for="codigoProduto" class="col-sm-2 col-form-label">Código do produto</label>
                     <div class="col-sm-10">
@@ -52,18 +57,18 @@
                 <div class="form-group row">
                     <label for="valorProduto" class="col-sm-2 col-form-label">Valor do produto</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="valorProduto" id="valorProduto" value="<?php echo $valor ?>" autocomplete="off">
+                        <input type="text" class="form-control valorProduto" name="valorProduto" id="valorProduto" value="<?php echo $valor ?>" autocomplete="off">
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label for="quantidade" class="col-sm-2 col-form-label">Quantidade</label>
                     <div class="col-sm-10">
-                        <input type="number" class="form-control" name="quantidade" id="quantidade" autocomplete="off" value="<?php echo $quantidade ?>">
+                        <input type="text" class="form-control" name="quantidade" id="quantidade" autocomplete="off" value="<?php echo $quantidade ?>">
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary btn-lg">Alterar</button>
-                <button type="button" class="btn btn-info btn-lg" id="homePage" onclick="location.href='index.php';">Página Inicial</button>
+                <button type="submit" class="btn btn-primary ">Alterar</button>
+                <button type="button" class="btn btn-info " id="homePage" onclick="location.href='index.php';">Página Inicial</button>
             </form>
         </div>
     </div>
