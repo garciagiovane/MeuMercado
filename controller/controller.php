@@ -15,8 +15,6 @@ if (isset($_GET["op"])) {
 
     switch ($op) {
         case 1:
-            setlocale(LC_MONETARY, "pt_BR");
-
             $erros = array();
             if (!$validation->validarNomeProduto($_POST['nomeProduto'])) {
                 $erros[] = 'Nome do produto inválido';
