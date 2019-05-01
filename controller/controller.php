@@ -1,21 +1,22 @@
-<?php header('Content-Type: text/html; charset=utf-8');
+<?php
+use Padronizacao\Padronizacao;
+
+header('Content-Type: text/html; charset=utf-8');
 include_once '../utilities/padronizacao.php';
-
-use Padronizacao as padronizar;
-
 include_once '../utilities/validation.class.php';
 include_once '../model/produto.class.php';
 include_once '../DAO/produtosDAO.class.php';
 
 $validation = new Validation();
 $daoProduto = new DaoProduto();
+$padrao = new Padronizacao;
 
 if (isset($_GET["op"])) {
     $op = $_GET["op"];
 
     switch ($op) {
-        case 1:
-            $erros = array();
+        case 1:            
+            $erros = array();            
             if (!$validation->validarNomeProduto($_POST['nomeProduto'])) {
                 $erros[] = 'Nome do produto inválido';
             }
@@ -25,16 +26,16 @@ if (isset($_GET["op"])) {
             if (!$validation->validarValor(str_replace(",", ".", $_POST['valorProduto']))) {
                 $erros[] = 'Valor inválido';
             }
-            if (!$validation->validarQuantidade($_POST['quantidade'], $_POST['tipoProduto'])) {
+            if (!$validation->validarQuantidade(str_replace(",", ".", $_POST['quantidade']), $_POST['tipoProduto'])) {
                 $erros[] = 'Quantidade inválida';
             }
 
             if (count($erros) == 0) {
                 $produto = new Produto();
-
-                $nomeProduto = mb_strtolower($_POST['nomeProduto'], "UTF-8");
-                $tipoProduto = mb_strtolower($_POST['tipoProduto'], "UTF-8");
-                $valorProduto = padronizar\padronizarValorParaOBanco($_POST["valorProduto"]);
+                
+                $nomeProduto = $padrao->transformar($_POST['nomeProduto']);
+                $tipoProduto = $padrao->transformar($_POST['tipoProduto']);
+                $valorProduto = $padrao->padronizarValorParaOBanco($_POST["valorProduto"]);
                 $quantidade = $_POST['quantidade'];
 
                 $produto->setNome($nomeProduto);
@@ -72,7 +73,8 @@ if (isset($_GET["op"])) {
             }
             break;
         case 3:
-            if (!$validation->validarNomeProduto($_POST['pesquisarPorTipo1'])) {
+            $nomePadronizado = $padrao->transformar($_POST['pesquisarPorTipo1']);
+            if (!$validation->validarNomeProduto($nomePadronizado)) {
                 $_SESSION["erroBuscaPorNomeControle"] = "Desculpe, não encontramos nenhum produto";
                 if (isset($_GET["origem"])) {
                     if ($_GET["origem"] == "venda") {
@@ -85,7 +87,7 @@ if (isset($_GET["op"])) {
                 }
                 header($location);
             } else {
-                $pesq = $_POST["pesquisarPorTipo1"];
+                $pesq = $nomePadronizado;
                 $querySql = "nomeProduto LIKE '%" . $pesq . "%'";
                 $produtosNoBanco = $daoProduto->buscarProdutosPor($querySql);
                 $_SESSION["produtosNoBanco"] = $produtosNoBanco;
@@ -102,7 +104,8 @@ if (isset($_GET["op"])) {
             }
             break;
         case 4:
-            if (!$validation->validarString($_POST['pesquisarPorTipo'])) {
+            $stringPadronizada = $padrao->transformar($_POST['pesquisarPorTipo']);
+            if (!$validation->validarString($stringPadronizada)) {
                 $_SESSION["erroBuscaPorNomeControle"] = "Desculpe, não encontramos nenhum produto";
                 if (isset($_GET["origem"])) {
                     if ($_GET["origem"] == "venda") {
@@ -115,7 +118,7 @@ if (isset($_GET["op"])) {
                 }
                 header($location);
             } else {
-                $pesq = $_POST["pesquisarPorTipo"];
+                $pesq = $stringPadronizada;
                 $querySql = "tipoProduto LIKE '%" . $pesq . "%'";
                 $produtosNoBanco = $daoProduto->buscarProdutosPor($querySql);
                 $_SESSION["produtosNoBanco"] = $produtosNoBanco;
