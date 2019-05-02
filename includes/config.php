@@ -130,8 +130,8 @@ if ($_SERVER["SERVER_NAME"] == "localhost") {
 			$h1;
 			break;
 		case "/view/consulta-produtos.php":
-			$lead = "Consulta de Produtos";
-			$PAGE_TITLE = "Consulta de Produtos";
+			$lead = "Consulta de Estoque";
+			$PAGE_TITLE = "Consulta de Estoque";
 			$h1;
 			break;
 		case "/view/excluir-produtos.php":
