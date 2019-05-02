@@ -98,18 +98,22 @@ include "../includes/head-tags.php"; ?>
                 echo "<div class='alert alert-danger' role='alert'>";
                 echo "<p>Erro ao buscarProdutos: Controle" . $_SESSION["erroBuscarProdutosControle"] . "</p>";
                 echo "</div>";
+                unset($_SESSION["erroBuscarProdutosControle"]);
             } else if (isset($_SESSION["erroBuscaPorNomeControle"])) {
                 echo "<div class='alert alert-danger' role='alert'>";
                 echo "<p>Erro ao buscarProdutos: Controle" . $_SESSION["erroBuscaPorNomeControle"] . "</p>";
                 echo "</div>";
+                unset($_SESSION["erroBuscaPorNomeControle"]);
             } else if (isset($_SESSION["erroBuscarProdutosCase8"])) {
                 echo "<div class='alert alert-danger' role='alert'>";
                 echo "<p>Erro ao buscarProdutos: Controle" . $_SESSION["erroBuscarProdutosCase8"] . "</p>";
                 echo "</div>";
+                unset($_SESSION["erroBuscarProdutosCase8"]);
             } else if (isset($_SESSION["erroAlterarValorProduto"])) {
                 echo "<div class='alert alert-danger' role='alert'>";
                 echo $_SESSION["erroAlterarValorProduto"];
                 echo "</div>";
+                unset($_SESSION["erroAlterarValorProduto"]);
             }
             ?>
         </div>

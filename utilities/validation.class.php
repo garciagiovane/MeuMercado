@@ -21,19 +21,25 @@ class Validation{
     }
 
     public function validarQuantidade($quantidade, $tipo){
-        if($tipo == "carne"){
-            if(is_numeric($quantidade)){
-                return true;
+        $regex = '/^([0-9]*\,?[0-9]+|[0-9]+\,?[0-9]*)?$/';
+        
+        if (preg_match($regex, $quantidade) == 1) {
+            if($tipo == "carne"){
+                if(is_numeric($quantidade)){
+                    return true;
+                }
+            } else if ($tipo != "carne"){
+                if(is_int($quantidade)) {
+                    return true;
+                } elseif(is_string($quantidade) && $quantidade > 0) {
+                    return ctype_digit($quantidade);
+                } else {
+                    return false;
+                }   
             }
-        } else if ($tipo != "carne"){
-            if(is_int($quantidade)) {
-                return true;
-            } elseif(is_string($quantidade) && $quantidade > 0) {
-                return ctype_digit($quantidade);
-            } else {
-                return false;
-            }   
-        }
+        } else {
+            return false;
+        }    
     }
 
     public function validarValor($valor){
