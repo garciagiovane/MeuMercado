@@ -24,7 +24,7 @@ include "../includes/head-tags.php"; ?>
                     $codigo = $prodEncontrado["codigoProduto"];
                     $nome = $prodEncontrado["nomeProduto"];
                     $tipo = $prodEncontrado["tipoProduto"];
-                    $valor = $prodEncontrado["valorProduto"];
+                    $valor =  number_format($prodEncontrado["valorProduto"], 2, ",", ".");
                     $quantidade = $prodEncontrado["qtdEstoque"];
                 }
                 unset($_SESSION["produtoPorId"]);
