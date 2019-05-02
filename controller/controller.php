@@ -15,8 +15,8 @@ if (isset($_GET["op"])) {
     $op = $_GET["op"];
 
     switch ($op) {
-        case 1:            
-            $erros = array();            
+        case 1:
+            $erros = array();
             if (!$validation->validarNomeProduto($_POST['nomeProduto'])) {
                 $erros[] = 'Nome do produto inválido';
             }
@@ -32,7 +32,7 @@ if (isset($_GET["op"])) {
 
             if (count($erros) == 0) {
                 $produto = new Produto();
-                
+
                 $nomeProduto = $padrao->transformar($_POST['nomeProduto']);
                 $tipoProduto = $padrao->transformar($_POST['tipoProduto']);
                 $valorProduto = $padrao->padronizarValorParaOBanco($_POST["valorProduto"]);
@@ -73,9 +73,10 @@ if (isset($_GET["op"])) {
             }
             break;
         case 3:
-            $nomePadronizado = $padrao->transformar($_POST['pesquisarPorTipo1']);
+            $nomePadronizado = $padrao->transformar($_POST['pesquisaPorNome']);
             if (!$validation->validarNomeProduto($nomePadronizado)) {
-                $_SESSION["erroBuscaPorNomeControle"] = "Desculpe, não encontramos nenhum produto";
+            //if (!$validation->validarString($nomePadronizado)) {
+                $_SESSION["erroBuscaPorNomeControle"] = "Nenhum produto encontrado ou pesquisa curta demais";
                 if (isset($_GET["origem"])) {
                     if ($_GET["origem"] == "venda") {
                         $location = "Location: ../view/venda.php";
@@ -159,7 +160,7 @@ if (isset($_GET["op"])) {
             }
             break;
         case 7:
-        $contador;
+            $contador;
             if (!$validation->validarQuantidade($_POST['quantidade'], $_POST['tipoProduto'])) {
                 $contador += 1;
             }
@@ -169,8 +170,7 @@ if (isset($_GET["op"])) {
             if (!$daoProduto->compararCodigoProduto($_POST["codigoProduto"])) {
                 $contador += 1;
             }
-            if($contador > 0){
-            //if (!$validation->validarQuantidade($_POST['quantidade'], $_POST['tipoProduto']) && !$validation->validarValor(str_replace(",", ".", $_POST['valorProduto'])) && $daoProduto->compararCodigoProduto($_POST["codigoProduto"])) {
+            if ($contador > 0) {
                 $_SESSION["erroAlterarValorProduto"] = "Erro ao alterar produto!";
                 $location = "Location: ../view/consulta-produtos.php";
                 header($location);
